@@ -1,5 +1,91 @@
 package br.edu.utfpr.oo2.ProjetoOO2.entity;
 
-public class Usuario {
+import java.sql.Date;
 
+public class Usuario {
+	private int id;
+	private String username;
+	private String senha;
+	private String nome;
+	private Date dataNascimento;
+	private String sexo;
+	private Enum UsuarioTipo;
+	
+	public Usuario() {
+	}
+
+	public Usuario(int id, 
+				   String username, 
+				   String senha, 
+				   String nome, 
+				   Date dataNascimento, 
+				   String sexo,
+				   Enum usuarioTipo) {
+		this.id = id;
+		this.username = username;
+		this.senha = senha;
+		this.nome = nome;
+		this.dataNascimento = dataNascimento;
+		this.sexo = sexo;
+		UsuarioTipo = usuarioTipo;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public String getUsuarioTipo() {
+		return UsuarioTipo.name();
+	}
+
+	public void setUsuarioTipo(Enum usuarioTipo) {
+		UsuarioTipo = usuarioTipo;
+	}
+	
+	
+	
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import br.edu.utfpr.oo2.ProjetoOO2.dao.BancoDados;
 import br.edu.utfpr.oo2.ProjetoOO2.dao.UsuarioDAO;
@@ -13,8 +14,9 @@ import br.edu.utfpr.oo2.ProjetoOO2.entity.UsuarioTipo;
 public class UsuarioTeste {
 	public static void main(String[] args) {
 		try {
-			Date data = new Date(07-10-2005);
-			cadastrarUsuarioTeste("tjv", "thomas34", "Thomas Vaz", data, "Masculino", UsuarioTipo.ADMIN);
+			LocalDate dataNascimento = LocalDate.of(2005,10,07);//Recebe a data do Jframe
+			Date dataNascimentoSql = Date.valueOf(dataNascimento);//Transforma a data de LocalDate para java.sql.Date
+			cadastrarUsuarioTeste("tjv", "thomas34", "Thomas Vaz", dataNascimentoSql, "Masculino", UsuarioTipo.ADMIN);//Cria o usuário utilizando a data correta
 		} catch (SQLException | IOException e) {
 			System.out.println("Erro: "+ e.getMessage());
 		}

@@ -2,15 +2,12 @@ package br.edu.utfpr.oo2.ProjetoOO2.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 public class BancoDados {
 	private static Connection conn = null;
+
 	public static Connection conectar() throws SQLException, IOException {
 		if (conn == null) {
 			Properties props = carregarPropriedades();
@@ -40,7 +37,7 @@ public class BancoDados {
 	}
 	
 	
-	public static void finalizarStatement(Statement st) throws SQLException {
+    public static void finalizarStatement(Statement st) throws SQLException {
 		if (st != null) {
 			st.close();
 		}
@@ -51,5 +48,5 @@ public class BancoDados {
 			rs.close();
 		}
 	}
-	
+
 }

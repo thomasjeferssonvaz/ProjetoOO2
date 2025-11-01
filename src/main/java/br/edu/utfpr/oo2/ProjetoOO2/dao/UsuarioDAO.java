@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import br.edu.utfpr.oo2.ProjetoOO2.dao.BancoDados;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 
 public class UsuarioDAO implements DAO<Usuario, Integer>{

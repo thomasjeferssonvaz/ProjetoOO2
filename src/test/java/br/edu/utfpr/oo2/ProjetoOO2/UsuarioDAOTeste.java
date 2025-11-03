@@ -18,7 +18,7 @@ public class UsuarioDAOTeste {
         try {
             LocalDate dataNascimento = LocalDate.of(2005,10, 7);//Recebe a data do Jframe
             Date dataNascimentoSql = Date.valueOf(dataNascimento);//Transforma a data de LocalDate para java.sql.Date
-            cadastrarUsuarioTeste("tjv3", "thomas34", "Thomas Vaz", dataNascimentoSql, "Masculino", "Admin");//Cria o usuário utilizando a data correta
+            cadastrarUsuarioTeste("tjv3", "thomas34", "Thomaz Vaz", dataNascimentoSql, "Masculino", "Admin");//Cria o usuário utilizando a data correta
         } catch (SQLException | IOException e) {
             if(e.getMessage().startsWith("Duplicate entry")) {
                 System.out.println("Erro: Usuário já cadastrado, por favor tente novamente com outro usuário");
@@ -27,6 +27,8 @@ public class UsuarioDAOTeste {
             }
         }
 
+
+
 //		Teste Buscar Todos
 //		try {
 //            buscarTodosUsuariosTeste();
@@ -34,13 +36,39 @@ public class UsuarioDAOTeste {
 //			System.out.println("Erro: "+e.getMessage());
 //		}
 
+
 //		Teste Buscar por chave
 //		try {
-//			buscarPorChaveTeste("tjv2");
+//			buscarPorChaveTeste("tjv3");
 //		} catch (SQLException | IOException e) {
 //			System.out.println("Erro: "+e.getMessage());
 //		}
+
+//		Teste Exclusão
+//        try {
+//            excluirUsuarioTeste("tjv3");
+//        } catch (SQLException | IOException e) {
+//            System.out.println("Erro: "+ e.getMessage());
+//        }
+
+
+//      Teste atualização
+        try {
+            Usuario usuario = new Usuario();
+            usuario.setNome("Thomas Jefersson Vaz");
+
+            LocalDate dataNascimento = LocalDate.of(2007,11, 8);
+            Date dataNascimentoSql = Date.valueOf(dataNascimento);
+
+            usuario.setDataNascimento(dataNascimentoSql);
+            usuario.setSexo("Feminino");
+            atualizarUsuarioTeste("tjv3", usuario);
+
+        } catch (SQLException | IOException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
+
 
     public static void cadastrarUsuarioTeste(String username,
                                              String senha,
@@ -104,12 +132,30 @@ public class UsuarioDAOTeste {
                     "Tipo de usuário: " + usuario.getUsuarioTipo());
             System.out.println("==========================");
         } else {
-            System.out.println("Curso não encontrado");
+            System.out.println("Usuário não encontrado");
         }
 
     }
 
+    public static void excluirUsuarioTeste(String username) throws SQLException, IOException {
+        Connection conn = BancoDados.conectar();
+        int resultado = new UsuarioDAO(conn).excluir(username);
+        if(resultado > 0) {
+            System.out.println("Usuário excluido com sucesso");
+        } else {
+            System.out.println("Usuário não encontrado para efetuar a exclusão");
+        }
+    }
 
+    public static void atualizarUsuarioTeste(String username, Usuario usuario) throws SQLException, IOException {
+        Connection conn = BancoDados.conectar();
+        int resultado = new UsuarioDAO(conn).atualizar(usuario, username);
+        if(resultado > 0) {
+            System.out.println("Usuário atualizado com sucesso");
+        } else {
+            System.out.println("Erro ao atualizar usuário");
+        }
+    }
 
 
 

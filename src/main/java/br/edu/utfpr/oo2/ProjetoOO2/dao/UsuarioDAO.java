@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.utfpr.oo2.ProjetoOO2.dao.BancoDados;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 
 public class UsuarioDAO implements DAO<Usuario, String>{
@@ -105,17 +104,14 @@ public class UsuarioDAO implements DAO<Usuario, String>{
         }
     }
 
-
-
     @Override
-    public int atualizar(Usuario usuario, String atributo) throws SQLException {
+    public int excluir(String username) throws SQLException {
         PreparedStatement st = null;
 
         try {
 
-            st = conn.prepareStatement("update usuario set usuario = ?, where id = ?");
-            st.setString(1, atributo);
-            st.setInt(2, usuario.getId());
+            st = conn.prepareStatement("delete from usuario where username = ?");
+            st.setString(1, username);
 
 
             return st.executeUpdate();
@@ -128,10 +124,27 @@ public class UsuarioDAO implements DAO<Usuario, String>{
     }
 
 
+
     @Override
-    public int excluir(String chaveDePesquisa) throws SQLException {
-        // TODO Auto-generated method stub
-        return 0;
+    public int atualizar(Usuario usuarioNew, String usernameUsuario) throws SQLException {
+        PreparedStatement st = null;
+
+        try {
+
+            st = conn.prepareStatement("update usuario set nome = ?, dataNascimento = ?, sexo = ? where username = ?");
+            st.setString(1, usuarioNew.getNome());
+            st.setDate(2, usuarioNew.getDataNascimento());
+            st.setString(3, usuarioNew.getSexo());
+            st.setString(4, usernameUsuario);
+
+
+            return st.executeUpdate();
+
+        } finally {
+
+            BancoDados.finalizarStatement(st);
+            BancoDados.desconectar();
+        }
     }
 
 

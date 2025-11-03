@@ -16,7 +16,7 @@ public class UsuarioDAOTeste {
 
 //		Teste Cadastro
         try {
-            LocalDate dataNascimento = LocalDate.of(2005,10,07);//Recebe a data do Jframe
+            LocalDate dataNascimento = LocalDate.of(2005,10, 7);//Recebe a data do Jframe
             Date dataNascimentoSql = Date.valueOf(dataNascimento);//Transforma a data de LocalDate para java.sql.Date
             cadastrarUsuarioTeste("tjv3", "thomas34", "Thomas Vaz", dataNascimentoSql, "Masculino", "Admin");//Cria o usuário utilizando a data correta
         } catch (SQLException | IOException e) {
@@ -29,14 +29,14 @@ public class UsuarioDAOTeste {
 
 //		Teste Buscar Todos
 //		try {
-//			UsuarioTeste.buscarTodosUsuariosTeste();
+//            buscarTodosUsuariosTeste();
 //		} catch (SQLException | IOException e) {
 //			System.out.println("Erro: "+e.getMessage());
 //		}
 
 //		Teste Buscar por chave
 //		try {
-//			UsuarioTeste.buscarPorChaveTeste("tjv2");
+//			buscarPorChaveTeste("tjv2");
 //		} catch (SQLException | IOException e) {
 //			System.out.println("Erro: "+e.getMessage());
 //		}
@@ -55,7 +55,6 @@ public class UsuarioDAOTeste {
         usuario.setDataNascimento(dataNascimento);
         usuario.setSexo(sexo);
         usuario.setUsuarioTipo(usuarioTipo);
-        //System.out.println(usuario);
 
         Connection conn = BancoDados.conectar();
         int resultado = new UsuarioDAO(conn).cadastrar(usuario);

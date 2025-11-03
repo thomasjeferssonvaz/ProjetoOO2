@@ -1,5 +1,7 @@
-package br.edu.utfpr.oo2.ProjetoOO2.dao;
+package br.edu.utfpr.oo2.ProjetoOO2;
 
+import br.edu.utfpr.oo2.ProjetoOO2.dao.BancoDados;
+import br.edu.utfpr.oo2.ProjetoOO2.dao.ContaDAO;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.ContaTipo;
 

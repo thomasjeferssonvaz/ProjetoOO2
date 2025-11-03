@@ -48,7 +48,7 @@ try{
     }
 
     @Override
-    public int atualizar(Conta entidade) throws SQLException {
+    public int atualizar(Conta entidade, Integer chavePrimaria) throws SQLException {
         return 0;
     }
 

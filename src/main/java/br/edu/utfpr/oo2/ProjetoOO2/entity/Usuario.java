@@ -3,89 +3,95 @@ package br.edu.utfpr.oo2.ProjetoOO2.entity;
 import java.sql.Date;
 
 public class Usuario {
-	private int id;
-	private String username;
-	private String senha;
-	private String nome;
-	private Date dataNascimento;
-	private String sexo;
-	private Enum UsuarioTipo;
-	
-	public Usuario() {
-	}
+    private int id;
+    private String username;
+    private String senha;
+    private String nome;
+    private Date dataNascimento;
+    private String sexo;
+    private String usuarioTipo;
 
-	public Usuario(int id, 
-				   String username, 
-				   String senha, 
-				   String nome, 
-				   Date dataNascimento, 
-				   String sexo,
-				   Enum usuarioTipo) {
-		this.id = id;
-		this.username = username;
-		this.senha = senha;
-		this.nome = nome;
-		this.dataNascimento = dataNascimento;
-		this.sexo = sexo;
-		UsuarioTipo = usuarioTipo;
-	}
+    public Usuario() {
+    }
 
-	public int getId() {
-		return id;
-	}
+    public Usuario(int id,
+                   String username,
+                   String senha,
+                   String nome,
+                   Date dataNascimento,
+                   String sexo,
+                   String usuarioTipo) {
+        this.id = id;
+        this.username = username;
+        this.senha = senha;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.sexo = sexo;
+        this.usuarioTipo = usuarioTipo;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getSenha() {
-		return senha;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+    public String getSenha() {
+        return senha;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
 
-	public String getSexo() {
-		return sexo;
-	}
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
+    public String getSexo() {
+        return sexo;
+    }
 
-	public String getUsuarioTipo() {
-		return UsuarioTipo.name();
-	}
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
 
-	public void setUsuarioTipo(Enum usuarioTipo) {
-		UsuarioTipo = usuarioTipo;
-	}
-	
-	
-	
+    public String getUsuarioTipo() {
+        return this.usuarioTipo;
+    }
+
+    public void setUsuarioTipo(String usuarioTipo) {
+        this.usuarioTipo = usuarioTipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario [id=" + id + ", username=" + username + ", senha=" + senha + ", nome=" + nome
+                + ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + ", usuarioTipo=" + usuarioTipo + "]";
+    }
+
+
+
 }

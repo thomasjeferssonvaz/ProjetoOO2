@@ -8,16 +8,16 @@ public class Conta {
     private int agencia;
     private int numeroConta;
     private double saldo;
-    private ContaTipo contaTipo;
+    private String tipoConta;
     private int idUsuario;
 
-    public Conta(String nomeBanco, int agencia, int numeroConta, ContaTipo contaTipo, int idUsuario) {
+    public Conta(String nomeBanco, int agencia, int numeroConta, String tipoConta, int idUsuario) {
 
         this.nomeBanco = nomeBanco;
         this.agencia = agencia;
         this.numeroConta = numeroConta;
         this.saldo = 0.00;
-        this.contaTipo = contaTipo;
+        this.tipoConta = tipoConta;
         this.idUsuario = idUsuario;
     }
 
@@ -41,11 +41,11 @@ public class Conta {
     }
 
     public String getTipoConta() {
-        return contaTipo.name();
+        return tipoConta;
     }
 
-    public void setTipoConta(ContaTipo contaTipo) {
-        this.contaTipo = contaTipo;
+    public void setTipoConta(String tipoConta) {
+        this.tipoConta = tipoConta;
     }
 
     public double getSaldo() {
@@ -78,5 +78,18 @@ public class Conta {
 
     public void setNumeroConta(int numeroConta) {
         this.numeroConta = numeroConta;
+    }
+
+    @Override
+    public String toString() {
+        return "Conta{" +
+                "idConta=" + idConta +
+                ", nomeBanco='" + nomeBanco + '\'' +
+                ", agencia=" + agencia +
+                ", numeroConta=" + numeroConta +
+                ", saldo=" + saldo +
+                ", tipoConta='" + tipoConta + '\'' +
+                ", idUsuario=" + idUsuario +
+                '}';
     }
 }

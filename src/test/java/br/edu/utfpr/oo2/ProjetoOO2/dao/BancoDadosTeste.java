@@ -1,6 +1,4 @@
-package br.edu.utfpr.oo2.ProjetoOO2;
-
-import br.edu.utfpr.oo2.ProjetoOO2.dao.BancoDados;
+package br.edu.utfpr.oo2.ProjetoOO2.dao;
 
 import java.io.IOException;
 import java.sql.Connection;

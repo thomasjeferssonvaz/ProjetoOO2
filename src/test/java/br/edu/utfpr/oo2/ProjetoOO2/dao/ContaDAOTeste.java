@@ -1,7 +1,5 @@
-package br.edu.utfpr.oo2.ProjetoOO2;
+package br.edu.utfpr.oo2.ProjetoOO2.dao;
 
-import br.edu.utfpr.oo2.ProjetoOO2.dao.BancoDados;
-import br.edu.utfpr.oo2.ProjetoOO2.dao.ContaDAO;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
 
 import java.io.IOException;

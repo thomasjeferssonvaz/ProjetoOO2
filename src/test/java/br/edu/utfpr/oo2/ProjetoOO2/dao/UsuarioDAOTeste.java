@@ -1,4 +1,4 @@
-package br.edu.utfpr.oo2.ProjetoOO2;
+package br.edu.utfpr.oo2.ProjetoOO2.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-import br.edu.utfpr.oo2.ProjetoOO2.dao.BancoDados;
-import br.edu.utfpr.oo2.ProjetoOO2.dao.UsuarioDAO;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 
 public class UsuarioDAOTeste {

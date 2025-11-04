@@ -134,10 +134,17 @@ public class ContaDAO implements DAO<Conta, Integer> {
     public int excluir(Integer chavePrimaria) throws SQLException {
 
         PreparedStatement st = null;
+        try {
+
 
         st = conn.prepareStatement("delete from conta where id_conta=?");
         st.setInt(1, chavePrimaria);
 
         return st.executeUpdate();
+        }finally {
+
+            BancoDados.finalizarStatement(st);
+            BancoDados.desconectar();
+        }
     }
 }

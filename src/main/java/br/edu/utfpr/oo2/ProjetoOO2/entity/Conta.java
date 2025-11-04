@@ -2,16 +2,20 @@ package br.edu.utfpr.oo2.ProjetoOO2.entity;
 
 public class Conta {
 
-    private int idConta; //Numero da conta
+    private int idConta;
+
     private String nomeBanco;
     private int agencia;
+    private int numeroConta;
     private double saldo;
     private ContaTipo contaTipo;
     private int idUsuario;
 
-    public Conta(String nomeBanco, int agencia, ContaTipo contaTipo, int idUsuario) {
+    public Conta(String nomeBanco, int agencia, int numeroConta, ContaTipo contaTipo, int idUsuario) {
+
         this.nomeBanco = nomeBanco;
         this.agencia = agencia;
+        this.numeroConta = numeroConta;
         this.saldo = 0.00;
         this.contaTipo = contaTipo;
         this.idUsuario = idUsuario;
@@ -66,5 +70,13 @@ public class Conta {
 
     public void setNomeBanco(String nomeBanco) {
         this.nomeBanco = nomeBanco;
+    }
+
+    public int getNumeroConta() {
+        return numeroConta;
+    }
+
+    public void setNumeroConta(int numeroConta) {
+        this.numeroConta = numeroConta;
     }
 }

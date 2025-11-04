@@ -15,7 +15,7 @@ public class ContaDAOTeste {
 
         try {
 
-            cadastrarContaTeste("Banco do Itau", 5527,ContaTipo.CONTA_POUPANCA, 21);
+            cadastrarContaTeste("Banco do Itau",15, 5577,ContaTipo.CONTA_POUPANCA, 21);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -24,14 +24,16 @@ public class ContaDAOTeste {
     }
 
     public static void cadastrarContaTeste(String nomeBanco,
+                                           int numeroConta,
                                            int agencia,
                                            ContaTipo contaTipo,
                                            int idUsuario) throws SQLException, IOException {
 
        Conta conta = new Conta();
 
-       conta.setAgencia(agencia);
-       conta.setNomeBanco(nomeBanco);
+        conta.setNomeBanco(nomeBanco);
+        conta.setNumeroConta(numeroConta);
+        conta.setAgencia(agencia);
        conta.setTipoConta(contaTipo);
        conta.setIdUsuario(idUsuario);
        //conta.setSaldo(0.0);

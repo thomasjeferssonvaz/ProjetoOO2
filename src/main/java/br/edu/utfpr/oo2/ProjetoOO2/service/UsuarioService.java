@@ -12,7 +12,11 @@ import java.util.List;
 
 public class UsuarioService {
 
-    public static void cadastrarUsuario(String username,
+    public UsuarioService(){
+
+    }
+
+    public void cadastrarUsuario(String username,
                                              String senha,
                                              String nome,
                                              Date dataNascimento,
@@ -37,7 +41,7 @@ public class UsuarioService {
     }
 
     
-    public static void buscarTodosUsuarios() throws SQLException, IOException {
+    public void buscarTodosUsuarios() throws SQLException, IOException {
         Connection conn = BancoDados.conectar();
         List<Usuario> listaUsuario = new UsuarioDAO(conn).buscarTodos();
 
@@ -60,28 +64,13 @@ public class UsuarioService {
     }
 
 
-    public static void buscarUsuarioPorUsername(String username) throws SQLException, IOException {
+    public Usuario buscarUsuarioPorUsername(String username) throws SQLException, IOException {
         Connection conn = BancoDados.conectar();
-        Usuario usuario = new UsuarioDAO(conn).buscarPorChave(username);
-
-        if (usuario != null) {
-            System.out.println("==========================");
-            System.out.println("Código: " + usuario.getId() + "\n" +
-                    "Nome: " + usuario.getNome() + "\n" +
-                    "Username: " + usuario.getUsername() + "\n" +
-                    "Senha: " + usuario.getSenha() + "\n" +
-                    "Sexo: " + usuario.getSexo() + "\n" +
-                    "Data de Nascimento: " + usuario.getDataNascimento() + "\n" +
-                    "Tipo de usuário: " + usuario.getUsuarioTipo());
-            System.out.println("==========================");
-        } else {
-            System.out.println("Usuário não encontrado");
-        }
-
+        return new UsuarioDAO(conn).buscarPorChave(username);
     }
 
 
-    public static void excluirUsuario(String username) throws SQLException, IOException {
+    public void excluirUsuario(String username) throws SQLException, IOException {
         Connection conn = BancoDados.conectar();
         int resultado = new UsuarioDAO(conn).excluir(username);
         if(resultado > 0) {
@@ -92,7 +81,7 @@ public class UsuarioService {
     }
 
 
-    public static void atualizarUsuarioTeste(String username, Usuario usuario) throws SQLException, IOException {
+    public void atualizarUsuario(String username, Usuario usuario) throws SQLException, IOException {
         Connection conn = BancoDados.conectar();
         int resultado = new UsuarioDAO(conn).atualizar(usuario, username);
         if(resultado > 0) {

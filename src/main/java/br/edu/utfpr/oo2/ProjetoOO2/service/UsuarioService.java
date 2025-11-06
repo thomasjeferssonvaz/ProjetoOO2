@@ -16,20 +16,7 @@ public class UsuarioService {
 
     }
 
-    public void cadastrarUsuario(String username,
-                                             String senha,
-                                             String nome,
-                                             Date dataNascimento,
-                                             String sexo,
-                                             String usuarioTipo) throws SQLException, IOException {
-        Usuario usuario = new Usuario();
-        usuario.setUsername(username);
-        usuario.setSenha(senha);
-        usuario.setNome(nome);
-        usuario.setDataNascimento(dataNascimento);
-        usuario.setSexo(sexo);
-        usuario.setUsuarioTipo(usuarioTipo);
-
+    public int cadastrarUsuario(Usuario usuario) throws SQLException, IOException {
         Connection conn = BancoDados.conectar();
         int resultado = new UsuarioDAO(conn).cadastrar(usuario);
         if(resultado > 0) {
@@ -37,7 +24,7 @@ public class UsuarioService {
         } else {
             System.out.println("Erro ao cadastrar usuário");
         }
-
+        return resultado;
     }
 
     

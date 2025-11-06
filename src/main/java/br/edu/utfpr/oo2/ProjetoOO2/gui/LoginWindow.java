@@ -21,10 +21,8 @@ public class LoginWindow extends JFrame {
     private JPasswordField passwordField;
     private JButton loginBtn;
     private UsuarioService usuarioService;
+    private JLabel lblNewLabel;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -63,30 +61,32 @@ public class LoginWindow extends JFrame {
         loginPanel.setLayout(null);
 
         txtfUsername = new JTextField();
-        txtfUsername.setBounds(186, 78, 99, 20);
+        txtfUsername.setBounds(186, 98, 99, 20);
         loginPanel.add(txtfUsername);
         txtfUsername.setColumns(10);
 
         JLabel UsernameLabel = new JLabel("Usuário");
-        UsernameLabel.setBounds(130, 81, 46, 14);
+        UsernameLabel.setBounds(130, 101, 46, 14);
         loginPanel.add(UsernameLabel);
 
         JLabel SenhaLabel = new JLabel("Senha");
-        SenhaLabel.setBounds(130, 116, 46, 14);
+        SenhaLabel.setBounds(130, 136, 46, 14);
         loginPanel.add(SenhaLabel);
 
         passwordField = new JPasswordField();
-        passwordField.setBounds(186, 109, 99, 20);
+        passwordField.setBounds(186, 129, 99, 20);
         loginPanel.add(passwordField);
 
         loginBtn = new JButton("Login");
         loginBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    validarLogin();
-                } catch (SQLException | IOException error) {
-                    JOptionPane.showMessageDialog(loginPanel, "Erro: \n"+error.getMessage(), "Erro de Login", JOptionPane.ERROR_MESSAGE);
-                }
+                setupLoginAction(loginPanel);
+
+//                try {
+//                    validarLogin();
+//                } catch (SQLException | IOException error) {
+//                    JOptionPane.showMessageDialog(loginPanel, "Erro: \n"+error.getMessage(), "Erro de Login", JOptionPane.ERROR_MESSAGE);
+//                }
 
             }
         });
@@ -94,17 +94,55 @@ public class LoginWindow extends JFrame {
         loginPanel.add(loginBtn);
 
         JButton SairBtn = new JButton("Sair");
+        SairBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        	}
+        });
         SairBtn.setBounds(10, 227, 89, 23);
         loginPanel.add(SairBtn);
+        
+        lblNewLabel = new JLabel("Login");
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel.setBounds(130, 28, 155, 37);
+        loginPanel.add(lblNewLabel);
+    }
+
+    private void setupLoginAction(JPanel loginPanel) {
+        String username = txtfUsername.getText();
+        String password = new String(passwordField.getPassword());
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(loginPanel, "Preencha o usuário e a senha.", "Campos Vazios", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        LoginLoadingDialog loadingDialog = new LoginLoadingDialog(LoginWindow.this);
+
+        LoginTaskWorker worker = new LoginTaskWorker(
+                username,
+                password,
+                usuarioService,
+                LoginWindow.this,
+                loadingDialog
+        );
+
+        worker.execute();
+        loadingDialog.setVisible(true);
     }
 
     protected boolean validarLogin() throws SQLException, IOException {
         Usuario usuario = this.usuarioService.buscarUsuarioPorUsername(txtfUsername.getText());
         if (usuario != null) {
-            this.dispose();
-            MainWindow mainFrame = new MainWindow();
-            mainFrame.setVisible(true);
-            return true;
+            if (usuario.getSenha().equals(new String(passwordField.getPassword()))) {
+                this.dispose();
+                MainWindow mainFrame = new MainWindow();
+                mainFrame.setVisible(true);
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(this, "Senha incorreta.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
         } else{
             JOptionPane.showMessageDialog(this, "Usuário não encontrado.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
             return false;

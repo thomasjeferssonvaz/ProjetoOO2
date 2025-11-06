@@ -7,24 +7,19 @@ public class LoginLoadingDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
 
-    // Construtor que recebe a janela pai (LoginWindow) e a torna modal
     public LoginLoadingDialog(JFrame owner) {
-        super(owner, "Carregando", true); // Título e Modal=true
+        super(owner, "Carregando", true);
 
-        // Configurações básicas
-        setUndecorated(true); // Remove a barra de título/bordas
+        setUndecorated(true);
         setSize(300, 100);
-        setLocationRelativeTo(owner); // Centraliza em relação à tela de Login
+        setLocationRelativeTo(owner);
 
-        // Painel principal
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
 
-        // Rótulo da Mensagem
         JLabel messageLabel = new JLabel("Logando...", SwingConstants.CENTER);
         messageLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
 
-        // Barra de Progresso Indeterminada
         JProgressBar progressBar = new JProgressBar();
         progressBar.setIndeterminate(true);
 

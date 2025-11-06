@@ -130,23 +130,23 @@ public class LoginWindow extends JFrame {
         loadingDialog.setVisible(true);
     }
 
-    protected boolean validarLogin() throws SQLException, IOException {
-        Usuario usuario = this.usuarioService.buscarUsuarioPorUsername(txtfUsername.getText());
-        if (usuario != null) {
-            if (usuario.getSenha().equals(new String(passwordField.getPassword()))) {
-                this.dispose();
-                MainWindow mainFrame = new MainWindow();
-                mainFrame.setVisible(true);
-                return true;
-            } else {
-                JOptionPane.showMessageDialog(this, "Senha incorreta.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-
-        } else{
-            JOptionPane.showMessageDialog(this, "Usuário não encontrado.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-    }
+//    protected boolean validarLogin() throws SQLException, IOException {
+//        Usuario usuario = this.usuarioService.buscarUsuarioPorUsername(txtfUsername.getText());
+//        if (usuario != null) {
+//            if (usuario.getSenha().equals(new String(passwordField.getPassword()))) {
+//                this.dispose();
+//                MainWindow mainFrame = new MainWindow();
+//                mainFrame.setVisible(true);
+//                return true;
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Senha incorreta.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+//                return false;
+//            }
+//
+//        } else{
+//            JOptionPane.showMessageDialog(this, "Usuário não encontrado.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+//            return false;
+//        }
+//    }
 
 }

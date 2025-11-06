@@ -1,14 +1,13 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginLoadingDialog extends JDialog {
-
+public class GenericLoadingDialog extends JDialog {
     private static final long serialVersionUID = 1L;
 
-    public LoginLoadingDialog(JFrame owner) {
-        super(owner, "Carregando", true);
+    public GenericLoadingDialog(JFrame owner, String textoExibido) {
+        super(owner,"Carregando", true);
 
         setUndecorated(true);
         setSize(300, 100);
@@ -17,7 +16,7 @@ public class LoginLoadingDialog extends JDialog {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
 
-        JLabel messageLabel = new JLabel("Logando...", SwingConstants.CENTER);
+        JLabel messageLabel = new JLabel(textoExibido+"...", SwingConstants.CENTER);
         messageLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
 
         JProgressBar progressBar = new JProgressBar();

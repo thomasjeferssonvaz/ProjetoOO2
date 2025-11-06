@@ -1,14 +1,12 @@
 package br.edu.utfpr.oo2.ProjetoOO2.gui;
 
-import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.LoginTaskWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.service.UsuarioService;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,12 +14,10 @@ import javax.swing.border.EmptyBorder;
 public class LoginWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
     private JTextField txtfUsername;
     private JPasswordField passwordField;
     private JButton loginBtn;
     private UsuarioService usuarioService;
-    private JLabel lblNewLabel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -30,7 +26,7 @@ public class LoginWindow extends JFrame {
 					LoginWindow frame = new LoginWindow();
                     frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Erro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -50,7 +46,7 @@ public class LoginWindow extends JFrame {
         setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
-        contentPane = new JPanel();
+        JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -101,12 +97,13 @@ public class LoginWindow extends JFrame {
         });
         SairBtn.setBounds(10, 227, 89, 23);
         loginPanel.add(SairBtn);
-        
-        lblNewLabel = new JLabel("Login");
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel.setBounds(130, 28, 155, 37);
-        loginPanel.add(lblNewLabel);
+
+        JLabel lblLoginCentral;
+        lblLoginCentral = new JLabel("Login");
+        lblLoginCentral.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblLoginCentral.setHorizontalAlignment(SwingConstants.CENTER);
+        lblLoginCentral.setBounds(130, 28, 155, 37);
+        loginPanel.add(lblLoginCentral);
     }
 
     private void setupLoginAction(JPanel loginPanel) {
@@ -116,7 +113,7 @@ public class LoginWindow extends JFrame {
             JOptionPane.showMessageDialog(loginPanel, "Preencha o usuário e a senha.", "Campos Vazios", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        LoginLoadingDialog loadingDialog = new LoginLoadingDialog(LoginWindow.this);
+        GenericLoadingDialog loadingDialog = new GenericLoadingDialog(LoginWindow.this, "Logando");
 
         LoginTaskWorker worker = new LoginTaskWorker(
                 username,

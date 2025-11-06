@@ -1,6 +1,7 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.MainWindow;
 import br.edu.utfpr.oo2.ProjetoOO2.service.UsuarioService;
 
 import javax.swing.*;
@@ -14,9 +15,9 @@ public class LoginTaskWorker extends SwingWorker<Usuario, Void> {
     private String password;
     private UsuarioService usuarioService;
     private JFrame loginFrame;
-    private LoginLoadingDialog loadingDialog;
+    private GenericLoadingDialog loadingDialog;
 
-    public LoginTaskWorker(String username, String password, UsuarioService service, JFrame frame, LoginLoadingDialog dialog) {
+    public LoginTaskWorker(String username, String password, UsuarioService service, JFrame frame, GenericLoadingDialog dialog) {
         this.username = username;
         this.password = password;
         this.usuarioService = service;

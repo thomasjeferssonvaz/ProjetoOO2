@@ -67,6 +67,19 @@ public class MainWindow extends JFrame {
         	}
         });
         userMenu.add(cadastrarUsuarioMenuItem);
+        
+        JMenu contaMenu = new JMenu("Conta");
+        menuBar.add(contaMenu);
+        
+        JMenuItem cadastrarContaMenuItem = new JMenuItem("Cadastrar Conta");
+        cadastrarContaMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		CadastroContaWindow cadastroContaWindow = new CadastroContaWindow();
+        		cadastroContaWindow.setVisible(true);
+        		
+        	}
+        });
+        contaMenu.add(cadastrarContaMenuItem);
 
     }
 	private static void addPopup(Component component, final JPopupMenu popup) {

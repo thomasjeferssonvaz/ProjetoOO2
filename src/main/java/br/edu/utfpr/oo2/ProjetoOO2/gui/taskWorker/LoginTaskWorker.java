@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 public class LoginTaskWorker extends SwingWorker<Usuario, Void> {
 
+    private Usuario user;
     private String username;
     private String password;
     private UsuarioService usuarioService;
@@ -35,6 +36,14 @@ public class LoginTaskWorker extends SwingWorker<Usuario, Void> {
         return null;
     }
 
+    private void setUser(Usuario user){
+        this.user = user;
+    }
+
+    public Usuario getUser() {
+        return this.user;
+    }
+
     @Override
     protected void done() {
         loadingDialog.dispose();
@@ -42,7 +51,8 @@ public class LoginTaskWorker extends SwingWorker<Usuario, Void> {
             Usuario usuario = get();
             if (usuario != null) {
                 loginFrame.dispose();
-                MainWindow mainFrame = new MainWindow();
+                setUser(usuario);
+                MainWindow mainFrame = new MainWindow(getUser());
                 mainFrame.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(loginFrame, "Usuário ou Senha inválidos.", "Erro de Login", JOptionPane.ERROR_MESSAGE);

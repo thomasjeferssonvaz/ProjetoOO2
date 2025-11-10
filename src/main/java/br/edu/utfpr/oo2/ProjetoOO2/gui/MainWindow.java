@@ -1,5 +1,7 @@
 package br.edu.utfpr.oo2.ProjetoOO2.gui;
 
+import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
+
 import java.awt.EventQueue;
 
 import javax.swing.*;
@@ -15,6 +17,7 @@ public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+    private Usuario userLogado;
 
 	/**
 	 * Launch the application.
@@ -32,9 +35,12 @@ public class MainWindow extends JFrame {
         });
 	}
 
+    public Usuario getUserLogado() {
+        return this.userLogado;
+    }
 
-
-	public MainWindow() {
+    public MainWindow(Usuario userLogado) {
+        this.userLogado = userLogado;
         this.initComponent();
 	}
 
@@ -67,16 +73,25 @@ public class MainWindow extends JFrame {
         	}
         });
         userMenu.add(cadastrarUsuarioMenuItem);
-        
+
+        JMenuItem mntmEditarUsuario = new JMenuItem("EditarUsuario");
+        mntmEditarUsuario.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                EditarUsuarioWindow editarUsuarioWindow = new EditarUsuarioWindow();
+                editarUsuarioWindow.setVisible(true);
+        	}
+        });
+        userMenu.add(mntmEditarUsuario);
+
         JMenu contaMenu = new JMenu("Conta");
         menuBar.add(contaMenu);
-        
+
         JMenuItem cadastrarContaMenuItem = new JMenuItem("Cadastrar Conta");
         cadastrarContaMenuItem.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		CadastroContaWindow cadastroContaWindow = new CadastroContaWindow();
+        		CadastroContaWindow cadastroContaWindow = new CadastroContaWindow(getUserLogado());
         		cadastroContaWindow.setVisible(true);
-        		
+
         	}
         });
         contaMenu.add(cadastrarContaMenuItem);

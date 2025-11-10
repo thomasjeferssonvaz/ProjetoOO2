@@ -57,8 +57,8 @@ public class CadastroContaWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroContaWindow() { // Passar como parametro um usuario
-
+	public CadastroContaWindow(Usuario userLogado) { // Passar como parametro um usuario
+        this.userLogado = userLogado;
 		this.initComponent();
 		this.popularNomeBanco();
 		this.popularTipoConta();
@@ -98,6 +98,7 @@ public class CadastroContaWindow extends JFrame {
 		this.cbTipoConta.setSelectedIndex(0);
 	}
 
+
 	private void cadastrarConta() {
 
 		Conta conta = new Conta();
@@ -114,7 +115,7 @@ public class CadastroContaWindow extends JFrame {
 			conta.setAgencia(Integer.parseInt(this.txtAgencia.getText()));
 			conta.setNumeroConta(Integer.parseInt(this.txtNumeroConta.getText()));
 			conta.setTipoConta((String) this.cbTipoConta.getSelectedItem());
-			conta.setIdUsuario(10);
+			conta.setIdUsuario(this.userLogado.getId());
 
 			// Passa o paramento para ContaService
 			ContaService contaService = new ContaService();
@@ -213,6 +214,11 @@ public class CadastroContaWindow extends JFrame {
 
 		btnCancelarConta = new JButton("Cancelar");
 		btnCancelarConta.setBounds(103, 215, 106, 35);
+        btnCancelarConta.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                    dispose();
+            }
+        });
 		contentPane.add(btnCancelarConta);
 
 		JLabel lbNomeBanco = new JLabel("Banco");

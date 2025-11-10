@@ -1,5 +1,6 @@
 package br.edu.utfpr.oo2.ProjetoOO2.gui;
 
+import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.LoginTaskWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.service.UsuarioService;
@@ -18,6 +19,7 @@ public class LoginWindow extends JFrame {
     private JPasswordField passwordField;
     private JButton loginBtn;
     private UsuarioService usuarioService;
+    private Usuario user;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -106,6 +108,14 @@ public class LoginWindow extends JFrame {
         loginPanel.add(lblLoginCentral);
     }
 
+//    public Usuario getUserLogado() {
+//        return this.user;
+//    }
+//
+//    private void setUserLogado(Usuario user) {
+//        this.user = user;
+//    }
+
     private void setupLoginAction(JPanel loginPanel) {
         String username = txtfUsername.getText();
         String password = new String(passwordField.getPassword());
@@ -125,25 +135,7 @@ public class LoginWindow extends JFrame {
 
         worker.execute();
         loadingDialog.setVisible(true);
+//        setUserLogado(worker.getUser());
     }
-
-//    protected boolean validarLogin() throws SQLException, IOException {
-//        Usuario usuario = this.usuarioService.buscarUsuarioPorUsername(txtfUsername.getText());
-//        if (usuario != null) {
-//            if (usuario.getSenha().equals(new String(passwordField.getPassword()))) {
-//                this.dispose();
-//                MainWindow mainFrame = new MainWindow();
-//                mainFrame.setVisible(true);
-//                return true;
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Senha incorreta.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
-//                return false;
-//            }
-//
-//        } else{
-//            JOptionPane.showMessageDialog(this, "Usuário não encontrado.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
-//            return false;
-//        }
-//    }
 
 }

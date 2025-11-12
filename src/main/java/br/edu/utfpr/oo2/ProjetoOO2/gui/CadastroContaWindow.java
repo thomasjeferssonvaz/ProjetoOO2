@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.CadastroContaTaskWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.ContaService;
 
 import javax.swing.JLabel;
@@ -103,7 +105,7 @@ public class CadastroContaWindow extends JFrame {
 
 		Conta conta = new Conta();
 
-		try {
+	//	try {
 
 			// Verifica se os campos não estão vazio
 			if (this.verificarCamposVazios()) {
@@ -119,7 +121,15 @@ public class CadastroContaWindow extends JFrame {
 
 			// Passa o paramento para ContaService
 			ContaService contaService = new ContaService();
-			contaService.cadastrarConta(conta);
+
+        GenericLoadingDialog loadingDialog = new GenericLoadingDialog(CadastroContaWindow.this, "Cadastrando Conta");
+
+        CadastroContaTaskWorker cadastroContaTaskWorker = new CadastroContaTaskWorker(conta,contaService,this,loadingDialog);
+        cadastroContaTaskWorker.execute();
+
+        loadingDialog.setVisible(true);
+
+			/*contaService.cadastrarConta(conta);
 
 			// Conta cadastrada
 			JOptionPane.showMessageDialog(btnCadastarConta, "Conta cadastrada com sucesso", "Sucesso",
@@ -134,8 +144,8 @@ public class CadastroContaWindow extends JFrame {
 					"Erro", JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(btnCadastarConta, "Ocorreu um erro inesperado: " + e.getMessage(), "Erro",
-					JOptionPane.ERROR_MESSAGE);
-		}
+					JOptionPane.ERROR_MESSAGE);*/
+		//}
 	}
 
 	private void initComponent() {

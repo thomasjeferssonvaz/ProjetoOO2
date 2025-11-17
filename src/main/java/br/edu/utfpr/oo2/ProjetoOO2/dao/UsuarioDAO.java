@@ -146,7 +146,24 @@ public class UsuarioDAO implements DAO<Usuario, String>{
             BancoDados.desconectar();
         }
     }
+    public int atualizarSenha(Usuario usuarioNew, String usernameUsuario) throws SQLException {
+        PreparedStatement st = null;
 
+        try {
+
+            st = conn.prepareStatement("update usuario set senha = ? where username = ?");
+            st.setString(1, usuarioNew.getSenha());
+            st.setString(2, usernameUsuario);
+
+
+            return st.executeUpdate();
+
+        } finally {
+
+            BancoDados.finalizarStatement(st);
+            BancoDados.desconectar();
+        }
+    }
 
 
 }

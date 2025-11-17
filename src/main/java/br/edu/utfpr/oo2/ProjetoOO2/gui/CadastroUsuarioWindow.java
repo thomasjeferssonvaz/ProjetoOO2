@@ -1,7 +1,7 @@
 package br.edu.utfpr.oo2.ProjetoOO2.gui;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.CadastroTaskWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.CadastroTaskWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.UsuarioService;
 
@@ -256,7 +256,7 @@ public class CadastroUsuarioWindow extends JFrame {
         btnCancelar.setBounds(10, 432, 89, 23);
         cadastroPanel.add(btnCancelar);
 
-        JLabel lblLabelCentral = new JLabel("Cadastro de clientes");
+        JLabel lblLabelCentral = new JLabel("Cadastro de usuário");
         lblLabelCentral.setHorizontalAlignment(SwingConstants.CENTER);
         lblLabelCentral.setFont(new Font("Tahoma", Font.PLAIN, 30));
         lblLabelCentral.setBounds(42, 32, 334, 34);

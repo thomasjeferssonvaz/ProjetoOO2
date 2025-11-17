@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.CadastroContaTaskWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.CadastroContaTaskWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.ContaService;
 
@@ -23,8 +23,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class CadastroContaWindow extends JFrame {

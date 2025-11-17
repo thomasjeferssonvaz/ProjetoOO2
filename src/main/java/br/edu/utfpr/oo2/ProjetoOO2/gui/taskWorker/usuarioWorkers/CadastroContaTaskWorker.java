@@ -1,6 +1,7 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.ContaService;
 
 import javax.swing.*;

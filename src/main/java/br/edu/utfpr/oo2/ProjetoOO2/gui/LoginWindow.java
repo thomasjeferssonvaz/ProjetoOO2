@@ -2,7 +2,7 @@ package br.edu.utfpr.oo2.ProjetoOO2.gui;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.LoginTaskWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.LoginTaskWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.service.UsuarioService;
 
 import java.awt.*;

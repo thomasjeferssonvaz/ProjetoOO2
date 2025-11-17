@@ -74,7 +74,7 @@ public class MainWindow extends JFrame {
         });
         userMenu.add(cadastrarUsuarioMenuItem);
 
-        JMenuItem mntmEditarUsuario = new JMenuItem("EditarUsuario");
+        JMenuItem mntmEditarUsuario = new JMenuItem("Editar usuário");
         mntmEditarUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 EditarUsuarioWindow editarUsuarioWindow = new EditarUsuarioWindow();
@@ -82,6 +82,19 @@ public class MainWindow extends JFrame {
         	}
         });
         userMenu.add(mntmEditarUsuario);
+        
+        JMenuItem mntmAlterarSenhaUsuario = new JMenuItem("Alterar senha");
+        userMenu.add(mntmAlterarSenhaUsuario);
+
+        mntmAlterarSenhaUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AlterarSenhaUsuarioWindow alterarSenhaUsuarioWindow = new AlterarSenhaUsuarioWindow(getUserLogado());
+                alterarSenhaUsuarioWindow.setVisible(true);
+
+            }
+        });
+
 
         JMenu contaMenu = new JMenu("Conta");
         menuBar.add(contaMenu);

@@ -14,6 +14,16 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(Usuario usuario) {
+        this.id = usuario.getId();
+        this.username = usuario.getUsername();
+        this.senha = usuario.getSenha();
+        this.nome = usuario.getNome();
+        this.dataNascimento = usuario.getDataNascimento();
+        this.sexo = usuario.getSexo();
+        this.usuarioTipo = usuario.getUsuarioTipo();
+    }
+
     public Usuario(int id,
                    String username,
                    String senha,

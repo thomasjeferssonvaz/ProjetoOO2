@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlterarSenhaUsuarioStartWorker extends SwingWorker<Usuario, Void> {
+public class SearchUsersStartWorker extends SwingWorker<Usuario, Void> {
     private Usuario usuario;
     private UsuarioService usuarioService;
     private JFrame alterarSenhaFrame;
@@ -18,7 +18,7 @@ public class AlterarSenhaUsuarioStartWorker extends SwingWorker<Usuario, Void> {
     private List<Usuario> listaUsuario;
     private List<Usuario> listaUsuarioDB;
 
-    public AlterarSenhaUsuarioStartWorker(Usuario usuario, UsuarioService usuarioService, JFrame alterarSenhaFrame, GenericLoadingDialog genericLoadingDialog){
+    public SearchUsersStartWorker(Usuario usuario, UsuarioService usuarioService, JFrame alterarSenhaFrame, GenericLoadingDialog genericLoadingDialog){
         this.usuario = usuario;
         this.usuarioService = usuarioService;
         this.alterarSenhaFrame = alterarSenhaFrame;

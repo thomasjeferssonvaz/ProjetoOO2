@@ -17,8 +17,10 @@ public class AlterarSenhaUsuarioWorker extends SwingWorker<Usuario, Void> {
     private GenericLoadingDialog genericLoadingDialog;
     private Usuario usuarioNovo;
     private int resultado;
+    private Usuario userLogado;
 
-    public AlterarSenhaUsuarioWorker(String cmBoxUsername, String senhaAntiga, String novaSenha, UsuarioService usuarioService, JFrame alterarSenhaFrame, GenericLoadingDialog genericLoadingDialog){
+    public AlterarSenhaUsuarioWorker(Usuario userLogado, String cmBoxUsername, String senhaAntiga, String novaSenha, UsuarioService usuarioService, JFrame alterarSenhaFrame, GenericLoadingDialog genericLoadingDialog){
+        this.userLogado = userLogado;
         this.cmBoxUsername = cmBoxUsername;
         this.senhaAntiga = senhaAntiga;
         this.novaSenha = novaSenha;
@@ -56,7 +58,13 @@ public class AlterarSenhaUsuarioWorker extends SwingWorker<Usuario, Void> {
         try {
             Usuario usuario = get();
             if(resultado>0) {
-                JOptionPane.showMessageDialog(alterarSenhaFrame, "Sucesso ao atualizar senha", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                if (userLogado.getUsuarioTipo().equals("Admin")){
+                    JOptionPane.showMessageDialog(alterarSenhaFrame, "Sucesso ao atualizar senha", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(alterarSenhaFrame, "Sucesso ao atualizar senha", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                    alterarSenhaFrame.dispose();
+                }
+
             }
         } catch (InterruptedException ignore) {
         } catch (java.util.concurrent.ExecutionException e) {

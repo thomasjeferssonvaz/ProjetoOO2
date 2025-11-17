@@ -39,6 +39,7 @@ public class MainWindow extends JFrame {
         return this.userLogado;
     }
 
+
     public MainWindow(Usuario userLogado) {
         this.userLogado = userLogado;
         this.initComponent();
@@ -66,6 +67,10 @@ public class MainWindow extends JFrame {
         menuBar.add(userMenu);
 
         JMenuItem cadastrarUsuarioMenuItem = new JMenuItem("Cadastrar usuário");
+        if(userLogado.getUsuarioTipo().equals("Usuário")){
+            cadastrarUsuarioMenuItem.setEnabled(false);
+            cadastrarUsuarioMenuItem.setToolTipText("Disponível somente para Administradores do sistema");
+        }
         cadastrarUsuarioMenuItem.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 CadastroUsuarioWindow cadastroUsuarioWindow = new CadastroUsuarioWindow();
@@ -77,12 +82,12 @@ public class MainWindow extends JFrame {
         JMenuItem mntmEditarUsuario = new JMenuItem("Editar usuário");
         mntmEditarUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                EditarUsuarioWindow editarUsuarioWindow = new EditarUsuarioWindow();
+                EditarUsuarioWindow editarUsuarioWindow = new EditarUsuarioWindow(getUserLogado());
                 editarUsuarioWindow.setVisible(true);
         	}
         });
         userMenu.add(mntmEditarUsuario);
-        
+
         JMenuItem mntmAlterarSenhaUsuario = new JMenuItem("Alterar senha");
         userMenu.add(mntmAlterarSenhaUsuario);
 
@@ -95,6 +100,16 @@ public class MainWindow extends JFrame {
             }
         });
 
+        JMenuItem mntmLogout = new JMenuItem("Sair");
+        mntmLogout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.setVisible(true);
+            }
+        });
+        userMenu.add(mntmLogout);
+
 
         JMenu contaMenu = new JMenu("Conta");
         menuBar.add(contaMenu);
@@ -104,7 +119,6 @@ public class MainWindow extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		CadastroContaWindow cadastroContaWindow = new CadastroContaWindow(getUserLogado());
         		cadastroContaWindow.setVisible(true);
-
         	}
         });
         contaMenu.add(cadastrarContaMenuItem);

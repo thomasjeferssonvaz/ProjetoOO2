@@ -2,22 +2,14 @@ package br.edu.utfpr.oo2.ProjetoOO2.gui;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.AlterarSenhaUsuarioStartWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.SearchUsersStartWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.AlterarSenhaUsuarioWorker;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.CadastroTaskWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.service.UsuarioService;
-
-import java.awt.EventQueue;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.Objects;
 
 public class AlterarSenhaUsuarioWindow extends JFrame {
 
@@ -48,10 +40,10 @@ public class AlterarSenhaUsuarioWindow extends JFrame {
 //		});
 	}
 
-    private void setupAlterarSenhaStartAction(JPanel alterarSenhaPanel){
+    private void setupSearchUsersStartWorker(JPanel alterarSenhaPanel){
         GenericLoadingDialog loadingDialog = new GenericLoadingDialog(AlterarSenhaUsuarioWindow.this, "Procurando usuários");
 
-        AlterarSenhaUsuarioStartWorker worker = new AlterarSenhaUsuarioStartWorker(userLogado, usuarioService, this, loadingDialog);
+        SearchUsersStartWorker worker = new SearchUsersStartWorker(userLogado, usuarioService, this, loadingDialog);
 
         worker.execute();
         loadingDialog.setVisible(true);
@@ -71,7 +63,7 @@ public class AlterarSenhaUsuarioWindow extends JFrame {
                 GenericLoadingDialog loadingDialog = new GenericLoadingDialog(AlterarSenhaUsuarioWindow.this, "Alterando senha");
 
 
-                AlterarSenhaUsuarioWorker worker = new AlterarSenhaUsuarioWorker(cmBoxUsername, senhaAntiga, novaSenha, usuarioService, this, loadingDialog);
+                AlterarSenhaUsuarioWorker worker = new AlterarSenhaUsuarioWorker(userLogado, cmBoxUsername, senhaAntiga, novaSenha, usuarioService, this, loadingDialog);
 
                 worker.execute();
                 loadingDialog.setVisible(true);
@@ -90,8 +82,8 @@ public class AlterarSenhaUsuarioWindow extends JFrame {
 
         this.userLogado = userLogado;
         this.usuarioService = new UsuarioService();
-        setupAlterarSenhaStartAction(alterarSenhaPanel);
         this.initComponents();
+        setupSearchUsersStartWorker(alterarSenhaPanel);
 
 	}
 
@@ -144,6 +136,9 @@ public class AlterarSenhaUsuarioWindow extends JFrame {
         btnAlterar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 setupAlterarSenhaAction(alterarSenhaPanel);
+                pssFRedigiteSuaSenha.setText("");
+                pssFNovaSenha.setText("");
+                pssFSenhaAntiga.setText("");
         	}
         });
         btnAlterar.setBounds(335, 227, 89, 23);
@@ -151,6 +146,11 @@ public class AlterarSenhaUsuarioWindow extends JFrame {
         
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.setBounds(10, 227, 89, 23);
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
         alterarSenhaPanel.add(btnCancelar);
     }
 }

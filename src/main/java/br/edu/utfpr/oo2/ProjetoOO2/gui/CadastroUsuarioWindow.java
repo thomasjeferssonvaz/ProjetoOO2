@@ -61,47 +61,7 @@ public class CadastroUsuarioWindow extends JFrame {
         this.initComponent();
 
         this.usuarioService = new UsuarioService();
-
 	}
-
-//    private void cadastrarAluno() {
-//        try {
-//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//            Usuario usuario = new Usuario();
-//            usuario.setUsername(txtfUsername.getText());
-//            usuario.setSenha(new String(passwordField.getPassword()));
-//            usuario.setDataNascimento(new java.sql.Date(sdf.parse(this.fTFDataNascimento.getText()).getTime()));
-//            usuario.setNome(txtfName.getText());
-//            usuario.setSexo(verificarSelecaoRadioButtonSexo());
-//            usuario.setUsuarioTipo(verificarSelecaoRadioButtonUsuario());
-//            if (usuario.getUsername() != null &&
-//                usuario.getSenha() != null &&
-//                usuario.getDataNascimento() != null &&
-//                usuario.getNome() != null) {
-//                try {
-//                    int cadastro = usuarioService.cadastrarUsuario(usuario);
-//                    if (cadastro > 0) {
-//                        JOptionPane.showMessageDialog(cadastroPanel, "Usuário cadastrado com sucesso!!", "Erro ao cadastrar", JOptionPane.INFORMATION_MESSAGE);
-//                    }
-//                } catch (SQLException | IOException e) {
-//                    if (e.getMessage().startsWith("Duplicate")) {
-//                        JOptionPane.showMessageDialog(cadastroPanel, "Usuário já existente, tente novamente com outro nome de usuário!", "Erro ao cadastrar", JOptionPane.ERROR_MESSAGE);
-//                    } else {
-//                        JOptionPane.showMessageDialog(cadastroPanel, "Erro: " + e.getMessage(), "Erro ao cadastrar", JOptionPane.ERROR_MESSAGE);
-//                    }
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(cadastroPanel, "Erro: Preencha todos os campos.", "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
-//                System.out.println(usuario);
-//            }
-//
-//        } catch (ParseException e) {
-//            System.out.println("Erro: " + e.getMessage());
-//            if (e.getMessage().startsWith("Unparseable date")) {
-//                JOptionPane.showMessageDialog(cadastroPanel, "Erro: Data de nascimento fora do padrão.", "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
-//            }
-//        }
-//    }
 
     private String verificarSelecaoRadioButtonSexo() {
         if(this.rdbtnMasculino.isSelected()) {

@@ -131,11 +131,12 @@ public class UsuarioDAO implements DAO<Usuario, String>{
 
         try {
 
-            st = conn.prepareStatement("update usuario set nome = ?, dataNascimento = ?, sexo = ? where username = ?");
+            st = conn.prepareStatement("update usuario set nome = ?, dataNascimento = ?, sexo = ?, tipo_usuario = ? where username = ?");
             st.setString(1, usuarioNew.getNome());
             st.setDate(2, usuarioNew.getDataNascimento());
             st.setString(3, usuarioNew.getSexo());
-            st.setString(4, usernameUsuario);
+            st.setString(4, usuarioNew.getUsuarioTipo());
+            st.setString(5, usernameUsuario);
 
 
             return st.executeUpdate();

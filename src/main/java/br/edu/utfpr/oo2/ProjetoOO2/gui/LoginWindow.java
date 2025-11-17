@@ -79,13 +79,6 @@ public class LoginWindow extends JFrame {
         loginBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setupLoginAction(loginPanel);
-
-//                try {
-//                    validarLogin();
-//                } catch (SQLException | IOException error) {
-//                    JOptionPane.showMessageDialog(loginPanel, "Erro: \n"+error.getMessage(), "Erro de Login", JOptionPane.ERROR_MESSAGE);
-//                }
-
             }
         });
         loginBtn.setBounds(335, 227, 89, 23);
@@ -94,7 +87,7 @@ public class LoginWindow extends JFrame {
         JButton SairBtn = new JButton("Sair");
         SairBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		dispose();
+                System.exit(0);
         	}
         });
         SairBtn.setBounds(10, 227, 89, 23);
@@ -107,14 +100,6 @@ public class LoginWindow extends JFrame {
         lblLoginCentral.setBounds(130, 28, 155, 37);
         loginPanel.add(lblLoginCentral);
     }
-
-//    public Usuario getUserLogado() {
-//        return this.user;
-//    }
-//
-//    private void setUserLogado(Usuario user) {
-//        this.user = user;
-//    }
 
     private void setupLoginAction(JPanel loginPanel) {
         String username = txtfUsername.getText();
@@ -135,7 +120,6 @@ public class LoginWindow extends JFrame {
 
         worker.execute();
         loadingDialog.setVisible(true);
-//        setUserLogado(worker.getUser());
     }
 
 }

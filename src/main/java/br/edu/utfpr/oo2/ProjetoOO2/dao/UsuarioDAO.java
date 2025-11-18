@@ -24,7 +24,7 @@ public class UsuarioDAO implements DAO<Usuario, String>{
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement("insert into usuario (username, senha, nome, dataNascimento, sexo, tipo_usuario) values (?, ?, ?, ?, ?, ?)");
-            st.setString(1, usuario.getUsername());
+            st.setString(1, usuario.getUsername().toLowerCase());
             st.setString(2, usuario.getSenha());
             st.setString(3, usuario.getNome());
             st.setDate(4, usuario.getDataNascimento());

@@ -21,20 +21,18 @@ public class ContaDAO implements DAO<Conta, Integer> {
     public int cadastrar(Conta conta) throws SQLException {
 
         PreparedStatement st = null;
-        try {
+        try{
 
-            st = conn.prepareStatement("insert into conta (nome_banco,numero_conta,agencia,tipo_conta,id_usuario,saldo) values (?,?,?,?,?,?)");
+            st = conn.prepareStatement("insert into conta (nome_banco, agencia,tipo_conta,id_usuario,saldo) values (?,?,?,?,?)");
 
             st.setString(1, conta.getNomeBanco());
-            st.setInt(2, conta.getNumeroConta());
-            st.setInt(3, conta.getAgencia());
-            st.setString(4, conta.getTipoConta());
-            st.setInt(5, conta.getIdUsuario()); //Id do usuario que criou a conta
-            st.setDouble(6, 0.0); //Inicia o saldo da conta por padrão com 0.0
+            st.setInt(2, conta.getAgencia());
+            st.setString(3, conta.getTipoConta());
+            st.setInt(4, conta.getIdUsuario()); //Id do usuario que criou a conta
+            st.setDouble(5, 0.0);
 
             return st.executeUpdate();
-
-        } finally {
+        }finally {
             BancoDados.finalizarStatement(st);
             BancoDados.desconectar();
         }

@@ -147,4 +147,39 @@ public class ContaDAO implements DAO<Conta, Integer> {
             BancoDados.desconectar();
         }
     }
+
+    public List<Conta> buscarPorUsuario(Integer id_usuario) throws SQLException {
+        List<Conta> contas = new ArrayList<>();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        
+        try {
+			
+		
+            st = conn.prepareStatement("select * from conta where id_usuario=?");
+            st.setInt(1, id_usuario);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Conta conta = new Conta();
+                conta.setIdConta(rs.getInt("id_conta"));
+                conta.setNomeBanco(rs.getString("nome_banco"));
+                conta.setNumeroConta(rs.getInt("numero_conta"));
+                conta.setAgencia(rs.getInt("agencia"));
+                conta.setTipoConta(rs.getString("tipo_conta"));
+                conta.setSaldo(rs.getDouble("saldo"));
+                conta.setIdUsuario(rs.getInt("id_usuario"));
+                contas.add(conta);
+            }
+
+        return contas;
+        } finally {
+			BancoDados.finalizarResultSet(rs);
+			BancoDados.finalizarStatement(st);
+			BancoDados.desconectar();
+		}
+    }
+    
+    
+    
 }

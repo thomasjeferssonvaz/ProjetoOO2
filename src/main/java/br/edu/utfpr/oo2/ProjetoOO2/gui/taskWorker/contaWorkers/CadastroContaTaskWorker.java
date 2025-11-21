@@ -1,4 +1,4 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.contaWorkers;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;

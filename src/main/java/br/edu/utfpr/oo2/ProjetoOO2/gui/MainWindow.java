@@ -122,6 +122,15 @@ public class MainWindow extends JFrame {
         	}
         });
         contaMenu.add(cadastrarContaMenuItem);
+        
+        JMenuItem EditarContaMenuItem = new JMenuItem("Editar Conta");
+        EditarContaMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		EditarContaWindow editarContaWindow = new EditarContaWindow(getUserLogado());
+        		//editarContaWindow.setVisible(true);
+        	}
+        });
+        contaMenu.add(EditarContaMenuItem);
 
     }
 	private static void addPopup(Component component, final JPopupMenu popup) {

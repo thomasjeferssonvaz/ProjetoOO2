@@ -3,12 +3,17 @@ package br.edu.utfpr.oo2.ProjetoOO2.service;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import br.edu.utfpr.oo2.ProjetoOO2.dao.BancoDados;
 import br.edu.utfpr.oo2.ProjetoOO2.dao.ContaDAO;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
+import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
+
+
 
 public class ContaService {
+
 
 
     public ContaService() {
@@ -28,6 +33,26 @@ public class ContaService {
 			System.out.println("Erro ao cadastrar conta");
 		}
 		return resultado;
+    	
+    }
+
+    public List<Conta> listarContas() throws SQLException, IOException {
+    	
+    	
+
+        Connection conn = BancoDados.conectar();
+        List<Conta>contasDB = new ContaDAO(conn).buscarTodos();
+        
+        return contasDB;
+    }
+    
+    
+    public List<Conta> buscarPorUsuario(Usuario userLogado) throws SQLException, IOException{
+    	
+    	
+    	Connection conn = BancoDados.conectar();
+
+    	return new ContaDAO(conn).buscarPorUsuario(userLogado.getId());
     	
     }
 }

@@ -1,6 +1,7 @@
 package br.edu.utfpr.oo2.ProjetoOO2.dao;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
+import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -26,6 +27,9 @@ public class ContaDAOTeste {
 
             //Teste Excluir
             //excluirTeste();
+
+            //Buscar por usuario teste
+            buscarPorUsuario();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -119,6 +123,21 @@ public class ContaDAOTeste {
         } else {
             System.out.println("Erro ao excluir!");
         }
+    }
+
+
+    public static void buscarPorUsuario() throws SQLException, IOException{
+
+        Connection conn = BancoDados.conectar();
+        Usuario usuario = new Usuario();
+        usuario.setId(10);
+        List contas = new ContaDAO(conn).buscarPorUsuario(usuario.getId());
+        if (contas != null) {
+            for (Object conta : contas) {
+                System.out.println(conta);
+            }
+        }
+
     }
 
 

@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.CadastroContaTaskWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.contaWorkers.CadastroContaTaskWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.ContaService;
 

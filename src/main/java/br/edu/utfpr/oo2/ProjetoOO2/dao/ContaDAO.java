@@ -120,7 +120,7 @@ public class ContaDAO implements DAO<Conta, Integer> {
             st.setInt(2, contaNew.getAgencia());
             st.setInt(3, contaNew.getNumeroConta());
             st.setString(4, contaNew.getTipoConta());
-            st.setInt(5, contaNew.getIdConta());
+            st.setInt(5, id_conta);
 
             return st.executeUpdate();
 

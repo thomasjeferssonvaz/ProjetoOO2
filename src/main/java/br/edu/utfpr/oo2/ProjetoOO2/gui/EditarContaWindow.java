@@ -1,160 +1,212 @@
 package br.edu.utfpr.oo2.ProjetoOO2.gui;
 
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-
-import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
+import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.contaWorkers.SearchContaTaskWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.contaWorkers.EditarContaWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.service.ContaService;
 
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import javax.swing.JScrollPane;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
+import java.awt.Font;
 
 public class EditarContaWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable tbContas;
-    private Usuario userLogado;
-    private ContaService contaService;
-    private JButton btnAtualizar;
-    private JButton btnCancelar;
-    private JScrollPane scrollPane;
+	private JTextField txtNumeroConta;
+	private JComboBox cbTipoConta;
+	private JButton btnAtualizar;
+	private JButton btnCancelar;
+	private JTextField txtAgencia;
+	private JComboBox cbNomeBanco;
 
+    private ContaService contaService;
+    private Conta contaOld;
+    private Conta contaNew;
 
 	/**
 	 * Launch the application.
-
-	public static void main(String[] args) {
+	 */
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-				//	EditarContaWindow frame = new EditarContaWindow();
-				//	frame.setVisible(true);
+					EditarContaWindow frame = new EditarContaWindow();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-     */
+    */
 	/**
 	 * Create the frame.
 	 */
 
-    private void pupularJtable(){
+    private void popularTipoConta() {
 
+        this.cbTipoConta.addItem("Poupança");
+        this.cbTipoConta.addItem("Corrente");
+        this.cbTipoConta.addItem("Salário");
+        this.cbTipoConta.addItem("Outra");
 
-        GenericLoadingDialog genericLoadingDialog =
-                new GenericLoadingDialog(this,"Buscando Contas");
+    }
 
+    private void popularNomeBanco() {
 
-        SearchContaTaskWorker searchContas =
-                new SearchContaTaskWorker(contaService, userLogado, this, genericLoadingDialog,tbContas);
+        this.cbNomeBanco.addItem("Brasil");
+        this.cbNomeBanco.addItem("Itaú");
+        this.cbNomeBanco.addItem("Sicredi");
+        this.cbNomeBanco.addItem("Bradesco");
+    }
 
-        searchContas.execute();
+    private void popularCampos(){
+
+        this.popularTipoConta();
+        this.popularNomeBanco();
+
+        this.txtNumeroConta.setText(String.valueOf(contaOld.getNumeroConta()));
+        this.cbTipoConta.setSelectedItem(contaOld.getTipoConta());
+        this.txtAgencia.setText(String.valueOf(contaOld.getAgencia()));
+        this.cbNomeBanco.setSelectedItem(contaOld.getNomeBanco());
+    }
+
+    private boolean verificarCamposVazios() {
+        if (txtAgencia.getText().isEmpty() || txtNumeroConta.getText().isEmpty()
+                || cbNomeBanco.getSelectedItem() == null || cbTipoConta.getSelectedItem() == null) {
+
+            return true;
+        }
+        return false;
+    }
+
+    private void atualizarConta(){
+
+        if (this.verificarCamposVazios()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Aviso", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        contaNew.setNumeroConta(Integer.parseInt(txtNumeroConta.getText().trim()));
+        contaNew.setTipoConta((String)cbTipoConta.getSelectedItem());
+        contaNew.setAgencia(Integer.parseInt(txtAgencia.getText().trim()));
+        contaNew.setNomeBanco((String)cbNomeBanco.getSelectedItem());
+
+        GenericLoadingDialog genericLoadingDialog = new GenericLoadingDialog(this, "Atualizando conta");
+
+        EditarContaWorker editarContaWorker = new EditarContaWorker(this,genericLoadingDialog,contaOld,contaNew,contaService);
+        editarContaWorker.execute();
         genericLoadingDialog.setVisible(true);
 
 
-        /*try{
-            List<Conta> contasDB = this.contaService.buscarPorUsuario(userLogado);
-            DefaultTableModel model = (DefaultTableModel) tbContas.getModel();
-            model.fireTableDataChanged();
-            model.setRowCount(0);
 
-            for (Conta contaDB : contasDB) {
-
-                model.addRow(new Object[] {
-                        contaDB.getIdConta(),
-                        contaDB.getNomeBanco(),
-                        contaDB.getAgencia(),
-                        contaDB.getNumeroConta(),
-                        contaDB.getTipoConta()
-                });
-            }
-        }catch (Exception e){
-           System.out.println(e.getMessage());
-        }*/
     }
 
 
-	public EditarContaWindow( Usuario userLogado) {
-    this.userLogado = userLogado;
-	this.contaService = new ContaService();
-	this.initComponent();
-    setVisible(true);
-    this.pupularJtable();
+    public EditarContaWindow(Conta conta) {
+        initComponent();
+        this.contaService = new ContaService();
+        this.contaOld = conta;
+        this.contaNew =  new Conta();
+        popularCampos();
+    }
 
-	}
-
-
-
-	private void initComponent() {
+	public void initComponent() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 458, 369);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JLabel lbEdiarContaTitle = new JLabel("Ediar Conta");
+		lbEdiarContaTitle.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		lbEdiarContaTitle.setBounds(171, 10, 111, 35);
+		contentPane.add(lbEdiarContaTitle);
+		
+		JLabel lbNumeroConta = new JLabel("Numero da Conta");
+		lbNumeroConta.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lbNumeroConta.setBounds(97, 58, 106, 19);
+		contentPane.add(lbNumeroConta);
 
-		JLabel lbTituloAtualizarConta = new JLabel("Atualizar Conta");
-		lbTituloAtualizarConta.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lbTituloAtualizarConta.setBounds(142, 11, 150, 29);
-		contentPane.add(lbTituloAtualizarConta);
-
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 51, 414, 143);
-		contentPane.add(scrollPane);
-
-		tbContas = new JTable();
-		scrollPane.setViewportView(tbContas);
-		tbContas.setModel(new DefaultTableModel(
-			new Object[][] {
-            },
-                new String[] {
-                    "Id", "Nome do Banco", "Ag\u00EAncia", "N\u00FAmero da Conta", "Tipo"
-			}){
-
-                //não permite editar a tabela
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false;
+		
+		JLabel lbAgencia = new JLabel("Agência");
+		lbAgencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lbAgencia.setBounds(97, 150, 106, 19);
+		contentPane.add(lbAgencia);
+		
+		JLabel lbTipoConta = new JLabel("Tipo Conta");
+		lbTipoConta.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lbTipoConta.setBounds(97, 195, 75, 19);
+		contentPane.add(lbTipoConta);
+		
+		txtAgencia = new JTextField();
+		txtAgencia.setBounds(182, 148, 97, 26);
+		contentPane.add(txtAgencia);
+		txtAgencia.setColumns(10);
+        txtAgencia.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume(); // bloqueia caracteres
+                    Toolkit.getDefaultToolkit().beep();
                 }
             }
+        });
 
-        );
-
-
-		btnAtualizar = new JButton("Atualizar Selecionado");
-		btnAtualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		btnAtualizar.setBounds(289, 221, 135, 29);
-		contentPane.add(btnAtualizar);
-
-		btnCancelar = new JButton("Cancelar");
-        btnCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
+		
+		JLabel lbNomeBanco = new JLabel("Nome do Banco");
+		lbNomeBanco.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lbNomeBanco.setBounds(97, 103, 106, 19);
+		contentPane.add(lbNomeBanco);
+		
+		cbNomeBanco = new JComboBox();
+		cbNomeBanco.setBounds(213, 100, 97, 26);
+		contentPane.add(cbNomeBanco);
+		
+		txtNumeroConta = new JTextField();
+		txtNumeroConta.setColumns(10);
+		txtNumeroConta.setBounds(213, 55, 97, 26);
+		contentPane.add(txtNumeroConta);
+        txtNumeroConta.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume(); // bloqueia caracteres
+                    Toolkit.getDefaultToolkit().beep();
+                }
             }
         });
-		btnCancelar.setBounds(10, 221, 135, 29);
+		
+		cbTipoConta = new JComboBox();
+		cbTipoConta.setBounds(182, 195, 128, 26);
+		contentPane.add(cbTipoConta);
+		
+		btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                atualizarConta();
+			}
+		});
+		btnAtualizar.setBounds(273, 262, 111, 39);
+		contentPane.add(btnAtualizar);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                dispose();
+			}
+		});
+		btnCancelar.setBounds(83, 262, 111, 39);
 		contentPane.add(btnCancelar);
-
-
 
 	}
 }

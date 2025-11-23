@@ -45,6 +45,17 @@ public class ContaService {
         
         return contasDB;
     }
+
+    public Conta buscarPorId(int id) throws SQLException, IOException {
+        Connection conn = BancoDados.conectar();
+        return new ContaDAO(conn).buscarPorChave(id);
+    }
+
+    public int atualizarConta(Conta contaNew, Conta contaOld) throws SQLException, IOException {
+        Connection conn = BancoDados.conectar();
+        return new ContaDAO(conn).atualizar(contaNew,contaOld.getIdConta());
+
+    }
     
     
     public List<Conta> buscarPorUsuario(Usuario userLogado) throws SQLException, IOException{

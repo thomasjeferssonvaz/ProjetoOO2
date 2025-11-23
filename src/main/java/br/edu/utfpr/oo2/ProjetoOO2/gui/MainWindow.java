@@ -126,7 +126,7 @@ public class MainWindow extends JFrame {
         JMenuItem EditarContaMenuItem = new JMenuItem("Editar Conta");
         EditarContaMenuItem.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		EditarContaWindow editarContaWindow = new EditarContaWindow(getUserLogado());
+        		EditarContasSelecaoWindow editarContaWindow = new EditarContasSelecaoWindow(getUserLogado());
         		//editarContaWindow.setVisible(true);
         	}
         });

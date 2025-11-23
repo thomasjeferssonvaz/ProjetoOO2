@@ -5,7 +5,7 @@ import br.edu.utfpr.oo2.ProjetoOO2.entity.Transaciton;
 import java.sql.*;
 
 public class TransactionDAO {
-    private Connection connection;
+    private final Connection connection;
 
     public TransactionDAO(Connection connection) {
         this.connection = connection;

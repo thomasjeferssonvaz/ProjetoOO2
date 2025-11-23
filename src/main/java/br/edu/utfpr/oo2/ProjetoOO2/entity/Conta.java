@@ -1,5 +1,8 @@
 package br.edu.utfpr.oo2.ProjetoOO2.entity;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Conta {
 
     private int idConta;
@@ -91,5 +94,17 @@ public class Conta {
                 ", tipoConta='" + tipoConta + '\'' +
                 ", idUsuario=" + idUsuario +
                 '}';
+    }
+
+    public static Conta fromResultSet(ResultSet rs) throws SQLException {
+        Conta c = new Conta();
+        c.setIdConta(rs.getInt("id"));
+        c.setNomeBanco(rs.getString("nome_banco"));
+        c.setAgencia(rs.getInt("agencia"));
+        c.setNumeroConta(rs.getInt("numero_conta"));
+        c.setSaldo(rs.getDouble("saldo"));
+        c.setTipoConta(rs.getString("tipo_conta"));
+        c.setIdUsuario(rs.getInt("id_usuario"));
+        return c;
     }
 }

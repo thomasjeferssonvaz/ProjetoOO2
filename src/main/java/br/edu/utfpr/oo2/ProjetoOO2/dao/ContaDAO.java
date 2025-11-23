@@ -76,27 +76,17 @@ public class ContaDAO implements DAO<Conta, Integer> {
     @Override
     public Conta buscarPorChave(Integer chavePrimaria) throws SQLException {
 
-        Conta conta = new Conta();
         ResultSet rs = null;
         PreparedStatement st = null;
 
 
         try {
-
-
             st = conn.prepareStatement("select * from conta where id_conta=?");
             st.setInt(1, chavePrimaria);
             rs = st.executeQuery();
 
             if (rs.next()) {
-                conta.setIdConta(rs.getInt("id_conta"));
-                conta.setNomeBanco(rs.getString("nome_banco"));
-                conta.setNumeroConta(rs.getInt("numero_conta"));
-                conta.setAgencia(rs.getInt("agencia"));
-                conta.setTipoConta(rs.getString("tipo_conta"));
-                conta.setSaldo(rs.getDouble("saldo"));
-                conta.setIdUsuario(rs.getInt("id_usuario"));
-
+                Conta conta = Conta.fromResultSet(rs);
                 return conta;
             } else {
                 return null;
@@ -153,22 +143,15 @@ public class ContaDAO implements DAO<Conta, Integer> {
         PreparedStatement st = null;
         ResultSet rs = null;
 
-        
+
         try {
-			
-		
+
+
             st = conn.prepareStatement("select * from conta where id_usuario=?");
             st.setInt(1, id_usuario);
             rs = st.executeQuery();
             while (rs.next()) {
-                Conta conta = new Conta();
-                conta.setIdConta(rs.getInt("id_conta"));
-                conta.setNomeBanco(rs.getString("nome_banco"));
-                conta.setNumeroConta(rs.getInt("numero_conta"));
-                conta.setAgencia(rs.getInt("agencia"));
-                conta.setTipoConta(rs.getString("tipo_conta"));
-                conta.setSaldo(rs.getDouble("saldo"));
-                conta.setIdUsuario(rs.getInt("id_usuario"));
+                Conta conta = Conta.fromResultSet(rs);
                 contas.add(conta);
             }
 

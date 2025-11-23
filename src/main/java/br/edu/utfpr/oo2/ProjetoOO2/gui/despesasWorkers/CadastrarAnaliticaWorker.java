@@ -1,26 +1,26 @@
 package br.edu.utfpr.oo2.ProjetoOO2.gui.despesasWorkers;
 
-import br.edu.utfpr.oo2.ProjetoOO2.entity.Despesas;
+import br.edu.utfpr.oo2.ProjetoOO2.entity.AnaliticaFinanceira;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
-import br.edu.utfpr.oo2.ProjetoOO2.service.DespesasService;
+import br.edu.utfpr.oo2.ProjetoOO2.service.AnaliticaFinanceiraService;
 
 import javax.swing.*;
 
 import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
 
-public class CadastrarDespesaWorker extends SwingWorker<Despesas, Void> {
+public class CadastrarAnaliticaWorker extends SwingWorker<AnaliticaFinanceira, Void> {
 
     private JFrame frameCadastarDespesa;
     private GenericLoadingDialog genericLoadingDialog;
-    private DespesasService despesasService;
-    private Despesas despesas;
+    private AnaliticaFinanceiraService despesasService;
+    private AnaliticaFinanceira despesas;
 
     private int res;
 
 
 
-    public CadastrarDespesaWorker(JFrame frameCadastarDespesa, GenericLoadingDialog genericLoadingDialog, DespesasService despesasService,  Despesas despesas) {
+    public CadastrarAnaliticaWorker(JFrame frameCadastarDespesa, GenericLoadingDialog genericLoadingDialog, AnaliticaFinanceiraService despesasService, AnaliticaFinanceira despesas) {
 
         this.frameCadastarDespesa = frameCadastarDespesa;
         this.genericLoadingDialog = genericLoadingDialog;
@@ -30,9 +30,9 @@ public class CadastrarDespesaWorker extends SwingWorker<Despesas, Void> {
     }
 
     @Override
-    protected Despesas doInBackground() throws Exception {
+    protected AnaliticaFinanceira doInBackground() throws Exception {
 
-         res = despesasService.cadastroDespesas(despesas);
+         res = despesasService.cadastroAnalitica(despesas);
 
          if(res == 1){
              return despesas;

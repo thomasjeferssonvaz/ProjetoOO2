@@ -1,23 +1,23 @@
 package br.edu.utfpr.oo2.ProjetoOO2.entity;
 
-import java.time.LocalDateTime;
-
-public class Despesas {
+public class AnaliticaFinanceira {
     private int id;
     private String nome;
+    private String categoriaTipo;
     private String descricao;
-    private String tipoDespesa;
+    private String recorrencia;
     private int id_usuario;
 
 
-    public Despesas(String nome, String descricao,String tipoDespesa, int id_usuario) {
+    public AnaliticaFinanceira(String nome, String categoriaTipo, String descricao, String tipoDespesa, int id_usuario) {
         this.nome = nome;
+        this.categoriaTipo = categoriaTipo;
         this.descricao = descricao;
-        this.tipoDespesa = tipoDespesa;
+        this.recorrencia = tipoDespesa;
         this.id_usuario = id_usuario;
 
     }
-    public Despesas() {}
+    public AnaliticaFinanceira() {}
 
 
     public int getId() {
@@ -48,10 +48,19 @@ public class Despesas {
         this.id_usuario = id_usuario;
     }
 
-    public String getTipoDespesa() {
-        return tipoDespesa;
+    public void setCategoriaTipo(String categoriaTipo) {
+        this.categoriaTipo = categoriaTipo;
     }
-    public void setTipoDespesa(String tipoDespesa) {
-        this.tipoDespesa = tipoDespesa;
+
+    public void setRecorrencia(String recorrencia) {
+        this.recorrencia = recorrencia;
+    }
+
+    public String getCategoriaTipo() {
+        return categoriaTipo;
+    }
+
+    public String getRecorrencia() {
+        return recorrencia;
     }
 }

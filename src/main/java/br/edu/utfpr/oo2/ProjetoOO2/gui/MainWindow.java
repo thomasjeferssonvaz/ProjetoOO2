@@ -126,19 +126,19 @@ public class MainWindow extends JFrame {
         JMenuItem EditarContaMenuItem = new JMenuItem("Editar Conta");
         EditarContaMenuItem.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		EditarContasSelecaoWindow editarContaWindow = new EditarContasSelecaoWindow(getUserLogado());
+        		EditarContasSelecaoWindow editarContasSelecaoWindow = new EditarContasSelecaoWindow(getUserLogado());
         		//editarContaWindow.setVisible(true);
         	}
         });
         contaMenu.add(EditarContaMenuItem);
-        
-        JMenu despesaMenu = new JMenu("Despesas");
+
+        JMenu despesaMenu = new JMenu("Receitas/Despesas");
         menuBar.add(despesaMenu);
         
-        JMenuItem cadastrarDespesaMenuItem = new JMenuItem("Cadastrar Despesas");
+        JMenuItem cadastrarDespesaMenuItem = new JMenuItem("Cadastrar Analitica");
         cadastrarDespesaMenuItem.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                CadastroDespesasWindow cadastroDespesasWindow = new CadastroDespesasWindow(getUserLogado());
+                CadastroAnaliticaWindow cadastroAnaliticaWindow = new CadastroAnaliticaWindow(getUserLogado());
         	}
         });
         despesaMenu.add(cadastrarDespesaMenuItem);

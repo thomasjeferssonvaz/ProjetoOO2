@@ -22,11 +22,12 @@ public class DespesasDAO implements DAO<Despesas, Integer>{
 
     @Override
     public int cadastrar(Despesas entidade) throws SQLException {
-        String sql = "INSERT INTO despesas (nome, descricao, id_usuario) VALUES (?,?,?)";
+        String sql = "INSERT INTO despesas (nome, descricao, tipo_despesa ,id_usuario) VALUES (?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, entidade.getNome());
         ps.setString(2, entidade.getDescricao());
-        ps.setInt(3, entidade.getId_usuario());
+        ps.setString(3,entidade.getTipoDespesa());
+        ps.setInt(4, entidade.getId_usuario());
         return ps.executeUpdate();
     }
 

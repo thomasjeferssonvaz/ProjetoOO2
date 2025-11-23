@@ -131,6 +131,17 @@ public class MainWindow extends JFrame {
         	}
         });
         contaMenu.add(EditarContaMenuItem);
+        
+        JMenu despesaMenu = new JMenu("Despesas");
+        menuBar.add(despesaMenu);
+        
+        JMenuItem cadastrarDespesaMenuItem = new JMenuItem("Cadastrar Despesas");
+        cadastrarDespesaMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                CadastroDespesasWindow cadastroDespesasWindow = new CadastroDespesasWindow(getUserLogado());
+        	}
+        });
+        despesaMenu.add(cadastrarDespesaMenuItem);
 
     }
 	private static void addPopup(Component component, final JPopupMenu popup) {

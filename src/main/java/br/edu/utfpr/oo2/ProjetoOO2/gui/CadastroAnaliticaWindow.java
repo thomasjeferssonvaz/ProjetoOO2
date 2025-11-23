@@ -2,7 +2,7 @@ package br.edu.utfpr.oo2.ProjetoOO2.gui;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.AnaliticaFinanceira;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.despesasWorkers.CadastrarAnaliticaWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.analiticaWorkers.CadastrarAnaliticaWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.AnaliticaFinanceiraService;
 
@@ -81,7 +81,7 @@ public class CadastroAnaliticaWindow extends JFrame {
         //despesa.setRecorrencia(cbRecorrencia.getSelectedItem().toString());
         despesa.setId_usuario(userLogado.getId());
 
-        GenericLoadingDialog genericLoadingDialog = new GenericLoadingDialog(this, "Cadastrando Despesa");
+        GenericLoadingDialog genericLoadingDialog = new GenericLoadingDialog(this, "Cadastrando Analitica");
 
         CadastrarAnaliticaWorker cadastrarDespesaWorker = new CadastrarAnaliticaWorker(this, genericLoadingDialog, despesasService, despesa);
         cadastrarDespesaWorker.execute();

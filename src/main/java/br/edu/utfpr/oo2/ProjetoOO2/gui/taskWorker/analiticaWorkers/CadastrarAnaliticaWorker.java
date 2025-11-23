@@ -1,4 +1,4 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui.despesasWorkers;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.analiticaWorkers;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.AnaliticaFinanceira;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
@@ -46,13 +46,13 @@ public class CadastrarAnaliticaWorker extends SwingWorker<AnaliticaFinanceira, V
 
         try {
             despesas = get();
-            JOptionPane.showMessageDialog(frameCadastarDespesa, "Despesa Cadastrada com sucesso!","Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(frameCadastarDespesa, "Analitica cadastrada com sucesso!","Sucesso", JOptionPane.INFORMATION_MESSAGE);
             genericLoadingDialog.dispose();
 
         } catch (InterruptedException ignore) {
         } catch (ExecutionException e) {
             if (e.getCause() instanceof SQLException) {
-                JOptionPane.showMessageDialog(frameCadastarDespesa, "Despesa já existente, tente novamente com outro numero de conta", "Erro ao cadastrar", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frameCadastarDespesa, "Analitica já existente", "Erro ao cadastrar", JOptionPane.ERROR_MESSAGE);
                 genericLoadingDialog.dispose();
             } else {
                 JOptionPane.showMessageDialog(frameCadastarDespesa, "Erro: " + e.getMessage(), "Erro ao cadastrar", JOptionPane.ERROR_MESSAGE);

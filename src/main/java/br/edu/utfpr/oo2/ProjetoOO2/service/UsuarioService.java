@@ -57,15 +57,15 @@ public class UsuarioService {
     }
 
 
-    public void excluirUsuario(String username) throws SQLException, IOException {
-        Connection conn = BancoDados.conectar();
-        int resultado = new UsuarioDAO(conn).excluir(username);
-        if(resultado > 0) {
-            System.out.println("Usuário excluido com sucesso");
-        } else {
-            System.out.println("Usuário não encontrado para efetuar a exclusão");
-        }
-    }
+//    public void excluirUsuario(String username) throws SQLException, IOException {
+//        Connection conn = BancoDados.conectar();
+//        int resultado = new UsuarioDAO(conn).excluir(username);
+//        if(resultado > 0) {
+//            System.out.println("Usuário excluido com sucesso");
+//        } else {
+//            System.out.println("Usuário não encontrado para efetuar a exclusão");
+//        }
+//    }
 
 
     public int atualizarUsuario(Usuario usuario, String username) throws SQLException, IOException {
@@ -75,6 +75,7 @@ public class UsuarioService {
             System.out.println("Usuário atualizado com sucesso");
         } else {
             System.out.println("Erro ao atualizar usuário");
+            System.out.println(resultado);
         }
         return resultado;
     }

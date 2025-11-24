@@ -10,6 +10,7 @@ public class Usuario {
     private Date dataNascimento;
     private String sexo;
     private String usuarioTipo;
+    private String status;
 
     public Usuario() {
     }
@@ -22,6 +23,7 @@ public class Usuario {
         this.dataNascimento = usuario.getDataNascimento();
         this.sexo = usuario.getSexo();
         this.usuarioTipo = usuario.getUsuarioTipo();
+        this.status = usuario.getStatus();
     }
 
     public Usuario(int id,
@@ -30,7 +32,8 @@ public class Usuario {
                    String nome,
                    Date dataNascimento,
                    String sexo,
-                   String usuarioTipo) {
+                   String usuarioTipo,
+                   String status) {
         this.id = id;
         this.username = username;
         this.senha = senha;
@@ -38,6 +41,7 @@ public class Usuario {
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
         this.usuarioTipo = usuarioTipo;
+        this.status = status;
     }
 
     public int getId() {
@@ -96,10 +100,18 @@ public class Usuario {
         this.usuarioTipo = usuarioTipo;
     }
 
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Usuario [id=" + id + ", username=" + username + ", senha=" + senha + ", nome=" + nome
-                + ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + ", usuarioTipo=" + usuarioTipo + "]";
+                + ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + ", usuarioTipo=" + usuarioTipo + " Status=" + status + "]";
     }
 
 

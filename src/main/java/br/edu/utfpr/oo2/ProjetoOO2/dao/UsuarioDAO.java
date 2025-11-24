@@ -23,13 +23,14 @@ public class UsuarioDAO implements DAO<Usuario, String>{
     public int cadastrar(Usuario usuario) throws SQLException {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("insert into usuario (username, senha, nome, dataNascimento, sexo, tipo_usuario) values (?, ?, ?, ?, ?, ?)");
+            st = conn.prepareStatement("insert into usuario (username, senha, nome, dataNascimento, sexo, tipo_usuario, status) values (?, ?, ?, ?, ?, ?, ?)");
             st.setString(1, usuario.getUsername().toLowerCase());
             st.setString(2, usuario.getSenha());
             st.setString(3, usuario.getNome());
             st.setDate(4, usuario.getDataNascimento());
             st.setString(5, usuario.getSexo());
             st.setString(6, usuario.getUsuarioTipo());
+            st.setString(7, usuario.getStatus());
 
             return st.executeUpdate();
         } finally {
@@ -92,6 +93,7 @@ public class UsuarioDAO implements DAO<Usuario, String>{
                 usuario.setDataNascimento(rs.getDate("dataNascimento"));
                 usuario.setSexo(rs.getString("sexo"));
                 usuario.setUsuarioTipo(rs.getString("tipo_usuario"));
+                usuario.setStatus(rs.getString("status"));
                 return usuario;
             }
 
@@ -131,12 +133,13 @@ public class UsuarioDAO implements DAO<Usuario, String>{
 
         try {
 
-            st = conn.prepareStatement("update usuario set nome = ?, dataNascimento = ?, sexo = ?, tipo_usuario = ? where username = ?");
+            st = conn.prepareStatement("update usuario set nome = ?, dataNascimento = ?, sexo = ?, tipo_usuario = ?, status = ? where username = ?");
             st.setString(1, usuarioNew.getNome());
             st.setDate(2, usuarioNew.getDataNascimento());
             st.setString(3, usuarioNew.getSexo());
             st.setString(4, usuarioNew.getUsuarioTipo());
-            st.setString(5, usernameUsuario);
+            st.setString(5, usuarioNew.getStatus());
+            st.setString(6, usernameUsuario);
 
 
             return st.executeUpdate();

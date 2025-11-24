@@ -2,6 +2,7 @@ package br.edu.utfpr.oo2.ProjetoOO2.gui;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.EditarStatusUsuarioWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.EditarUsuarioWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.LoadSelectedUserDataWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.SearchUsersStartWorker;
@@ -37,7 +38,8 @@ public class EditarUsuarioWindow extends JFrame implements ItemListener {
     private JRadioButtonMenuItem rdbtnNaoInformar;
     private JRadioButtonMenuItem rdbtnUsuario;
     private JRadioButtonMenuItem rdbtnAdmin;
-
+    private JButton statusUsuario;
+    private Usuario usuarioSelecionado;
 
 	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
@@ -62,24 +64,43 @@ public class EditarUsuarioWindow extends JFrame implements ItemListener {
         for (Usuario usuarioWorker : worker.getListaUsuario()) {
             cmBoxUsuario.addItem(usuarioWorker.getUsername());
         }
-
     }
 
     private void setupLoadSelectedUserDataWorker(JFrame editarUsuarioWindow){
-        GenericLoadingDialog loadingDialog = new GenericLoadingDialog(editarUsuarioWindow, "Carregando dados do usuário selecionado");
         String cmBoxUsername = cmBoxUsuario.getSelectedItem().toString();
+        GenericLoadingDialog loadingDialog = new GenericLoadingDialog(editarUsuarioWindow, "Carregando dados do usuário selecionado");
 
         LoadSelectedUserDataWorker worker = new LoadSelectedUserDataWorker(cmBoxUsername, usuarioService, this, loadingDialog);
 
         worker.execute();
         loadingDialog.setVisible(true);
 
-        Usuario usuario = new Usuario(worker.getUsuario());
-        txtfName.setText(usuario.getNome());
+        usuarioSelecionado = new Usuario(worker.getUsuario());
 
-        if (usuario.getDataNascimento() != null) {
+        txtfName.setText(usuarioSelecionado.getNome());
+        String textAtualizarStatusUsuario = usuarioSelecionado.getStatus();
+        if (textAtualizarStatusUsuario.equals("ativo")) {
+            statusUsuario.setText("Desativar usuário");
+            statusUsuario.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e){
+                    setupEditarStatusUsuarioWorker(editarUsuarioPanel, "Desativando");
+                    setupLoadSelectedUserDataWorker(EditarUsuarioWindow.this);
+
+                }
+            });
+        } else {
+            statusUsuario.setText("Ativar usuário");
+            statusUsuario.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e){
+                    setupEditarStatusUsuarioWorker(editarUsuarioPanel, "Ativando");
+                    setupLoadSelectedUserDataWorker(EditarUsuarioWindow.this);
+                }
+            });
+        }
+
+        if (usuarioSelecionado.getDataNascimento() != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            String dataFormatada = sdf.format(usuario.getDataNascimento());
+            String dataFormatada = sdf.format(usuarioSelecionado.getDataNascimento());
             fTFDataNascimento.setValue(dataFormatada);
         } else {
             this.fTFDataNascimento.setValue("");
@@ -87,7 +108,7 @@ public class EditarUsuarioWindow extends JFrame implements ItemListener {
 
 
 
-        switch (usuario.getSexo()){
+        switch (usuarioSelecionado.getSexo()){
             case "Masculino":
                 rdbtnMasculino.setSelected(true);
                 break;
@@ -97,15 +118,13 @@ public class EditarUsuarioWindow extends JFrame implements ItemListener {
             default:
                 rdbtnNaoInformar.setSelected(true);
         }
-        switch (usuario.getUsuarioTipo()){
+        switch (usuarioSelecionado.getUsuarioTipo()){
             case "Admin":
                 rdbtnAdmin.setSelected(true);
                 break;
             default:
                 rdbtnUsuario.setSelected(true);
         }
-
-
     }
 
     private void setupEditarUsuarioWorker(JPanel editarUsuarioPanel){
@@ -117,6 +136,7 @@ public class EditarUsuarioWindow extends JFrame implements ItemListener {
             usuario.setDataNascimento(new java.sql.Date(sdf.parse(this.fTFDataNascimento.getText()).getTime()));
             usuario.setNome(txtfName.getText());
             usuario.setSexo(verificarSelecaoRadioButtonSexo());
+            usuario.setStatus(usuarioSelecionado.getStatus());
             if (userLogado.getUsuarioTipo().equals("Admin")){
                 usuario.setUsuarioTipo(verificarSelecaoRadioButtonUsuario());
             } else {
@@ -138,6 +158,28 @@ public class EditarUsuarioWindow extends JFrame implements ItemListener {
                 JOptionPane.showMessageDialog(editarUsuarioPanel, "Erro: " + e.getMessage(), "Erro grave", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    private void setupEditarStatusUsuarioWorker(JPanel editarUsuarioPanel, String alteracaoStatus){
+        String cmBoxUsername = cmBoxUsuario.getSelectedItem().toString();
+        String textoLoading;
+        String operacao;
+        if(alteracaoStatus.equals("Ativando")){
+            textoLoading = "Ativando";
+            operacao = "Ativando";
+        } else {
+            textoLoading = "Desativando";
+            operacao = "Desativando";
+        }
+
+
+        GenericLoadingDialog loadingDialog = new GenericLoadingDialog(EditarUsuarioWindow.this, textoLoading+ " usuário");
+
+
+        EditarStatusUsuarioWorker worker = new EditarStatusUsuarioWorker(loadingDialog, usuarioService, this, cmBoxUsername, this.userLogado, operacao);
+
+        worker.execute();
+        loadingDialog.setVisible(true);
     }
 
     private String verificarSelecaoRadioButtonSexo() {
@@ -182,7 +224,6 @@ public class EditarUsuarioWindow extends JFrame implements ItemListener {
         cmBoxUsuario.addItemListener(this);
         this.usuarioService = new UsuarioService();
         setupSearchUsersStartWorker(EditarUsuarioWindow.this);
-
 	}
 
     private void initContent() {
@@ -272,6 +313,10 @@ public class EditarUsuarioWindow extends JFrame implements ItemListener {
             rdbtnUsuario.setToolTipText("Disponível somente para Administradores do sistema");
             rdbtnAdmin.setToolTipText("Disponível somente para Administradores do sistema");
         }
+
+        statusUsuario = new JButton();
+        statusUsuario.setBounds(236, 320, 150, 26);
+        editarUsuarioPanel.add(statusUsuario);
 
 
         JButton btnAtualizar = new JButton("Atualizar");

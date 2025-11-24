@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LoginWindow extends JFrame {
 
@@ -99,6 +101,17 @@ public class LoginWindow extends JFrame {
         lblLoginCentral.setHorizontalAlignment(SwingConstants.CENTER);
         lblLoginCentral.setBounds(130, 28, 155, 37);
         loginPanel.add(lblLoginCentral);
+        
+        JLabel lblNewLabel = new JLabel("Não tem usuário? Clique aqui!");
+        lblNewLabel.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+                CadastroUsuarioWindow cadastroUsuarioWindow = new CadastroUsuarioWindow(true);
+                cadastroUsuarioWindow.setVisible(true);
+        	}
+        });
+        lblNewLabel.setBounds(186, 160, 194, 14);
+        loginPanel.add(lblNewLabel);
     }
 
     private void setupLoginAction(JPanel loginPanel) {
@@ -121,5 +134,4 @@ public class LoginWindow extends JFrame {
         worker.execute();
         loadingDialog.setVisible(true);
     }
-
 }

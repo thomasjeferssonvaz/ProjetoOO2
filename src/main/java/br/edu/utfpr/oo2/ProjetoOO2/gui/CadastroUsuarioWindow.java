@@ -101,6 +101,7 @@ public class CadastroUsuarioWindow extends JFrame {
             usuario.setSenha(new String(passwordField.getPassword()));
             usuario.setDataNascimento(new java.sql.Date(sdf.parse(this.fTFDataNascimento.getText()).getTime()));
             usuario.setNome(txtfName.getText());
+            usuario.setStatus("ativo");
             usuario.setSexo(verificarSelecaoRadioButtonSexo());
             if (isCadastro) {
                 usuario.setUsuarioTipo("Usuario");

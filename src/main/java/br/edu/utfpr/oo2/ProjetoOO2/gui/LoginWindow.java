@@ -73,6 +73,7 @@ public class LoginWindow extends JFrame {
         SenhaLabel.setBounds(130, 136, 46, 14);
         loginPanel.add(SenhaLabel);
 
+
         passwordField = new JPasswordField();
         passwordField.setBounds(186, 129, 99, 20);
         loginPanel.add(passwordField);

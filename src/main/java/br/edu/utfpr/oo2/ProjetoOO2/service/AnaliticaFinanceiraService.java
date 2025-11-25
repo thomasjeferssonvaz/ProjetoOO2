@@ -7,6 +7,7 @@ import br.edu.utfpr.oo2.ProjetoOO2.entity.AnaliticaFinanceira;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class AnaliticaFinanceiraService {
 
@@ -17,4 +18,11 @@ public class AnaliticaFinanceiraService {
         Connection conn = BancoDados.conectar();
         return new AnaliticaFinanceiraDAO(conn).cadastrar(despesas);
     }
+
+    public List<AnaliticaFinanceira> listarReceitas(int idUsuario) throws SQLException, IOException {
+        Connection conn = BancoDados.conectar();
+        return new AnaliticaFinanceiraDAO(conn).listarReceitas(idUsuario);
+
+    }
+
 }

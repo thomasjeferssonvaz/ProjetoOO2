@@ -24,12 +24,28 @@ public class AnaliticaFinanceira {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public String toString() {
+        return "AnaliticaFinanceira{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", categoriaTipo='" + categoriaTipo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", recorrencia='" + recorrencia + '\'' +
+                ", id_usuario=" + id_usuario +
+                '}';
     }
 
     public String getDescricao() {

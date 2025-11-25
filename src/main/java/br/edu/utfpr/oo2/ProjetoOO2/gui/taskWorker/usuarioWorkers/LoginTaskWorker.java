@@ -31,8 +31,18 @@ public class LoginTaskWorker extends SwingWorker<Usuario, Void> {
     @Override
     protected Usuario doInBackground() throws Exception {
         Usuario usuario = usuarioService.buscarUsuarioPorUsername(username);
-        if (usuario != null && usuario.getSenha().equals(password)) {
-            return usuario;
+        if (usuario != null) {
+            if (usuario.getSenha().equals(password)) {
+                if (usuario.getStatus().equals("ativo")) {
+                    return usuario;
+                } else {
+                    JOptionPane.showMessageDialog(loginFrame, "Usuário desativado, tente novamente com outro usuário ou entre em contato com um administrador do sistema.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(loginFrame, "Senha incorreta.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(loginFrame, "Usuário inexistente.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }
@@ -50,14 +60,10 @@ public class LoginTaskWorker extends SwingWorker<Usuario, Void> {
         loadingDialog.dispose();
         try {
             Usuario usuario = get();
-            if (usuario != null) {
-                loginFrame.dispose();
-                setUser(usuario);
-                MainWindow mainFrame = new MainWindow(getUser());
-                mainFrame.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(loginFrame, "Usuário ou Senha inválidos.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
-            }
+            loginFrame.dispose();
+            setUser(usuario);
+            MainWindow mainFrame = new MainWindow(getUser());
+            mainFrame.setVisible(true);
         } catch (InterruptedException ignore) {
         } catch (java.util.concurrent.ExecutionException e) {
             Throwable cause = e.getCause();

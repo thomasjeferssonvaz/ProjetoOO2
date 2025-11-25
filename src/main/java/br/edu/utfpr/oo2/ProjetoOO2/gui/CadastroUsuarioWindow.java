@@ -34,6 +34,7 @@ public class CadastroUsuarioWindow extends JFrame {
     private JRadioButtonMenuItem rdbtnUsuario;
     private JRadioButtonMenuItem rdbtnAdmin;
     private UsuarioService usuarioService;
+    private Boolean isCadastro = false;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -62,6 +63,14 @@ public class CadastroUsuarioWindow extends JFrame {
 
         this.usuarioService = new UsuarioService();
 	}
+
+    public CadastroUsuarioWindow(Boolean isCadastro) {
+        this.isCadastro = true;
+        this.criarMascaraData();
+        this.initComponent();
+
+        this.usuarioService = new UsuarioService();
+    }
 
     private String verificarSelecaoRadioButtonSexo() {
         if(this.rdbtnMasculino.isSelected()) {
@@ -92,8 +101,14 @@ public class CadastroUsuarioWindow extends JFrame {
             usuario.setSenha(new String(passwordField.getPassword()));
             usuario.setDataNascimento(new java.sql.Date(sdf.parse(this.fTFDataNascimento.getText()).getTime()));
             usuario.setNome(txtfName.getText());
+            usuario.setStatus("ativo");
             usuario.setSexo(verificarSelecaoRadioButtonSexo());
-            usuario.setUsuarioTipo(verificarSelecaoRadioButtonUsuario());
+            if (isCadastro) {
+                usuario.setUsuarioTipo("Usuario");
+            } else {
+                usuario.setUsuarioTipo(verificarSelecaoRadioButtonUsuario());
+            }
+
 
             GenericLoadingDialog loadingDialog = new GenericLoadingDialog(CadastroUsuarioWindow.this, "Cadastrando usuário");
 
@@ -197,6 +212,12 @@ public class CadastroUsuarioWindow extends JFrame {
         rdbtnAdmin.setBounds(10, 63, 133, 26);
         buttonGroupUsuario.add(rdbtnAdmin);
         pnTipoUsuario.add(rdbtnAdmin);
+
+        if(isCadastro) {
+            pnTipoUsuario.setEnabled(false);
+            rdbtnUsuario.setEnabled(false);
+            rdbtnAdmin.setEnabled(false);
+        }
         
         JButton btnCadastrar = new JButton("Cadastrar");
         btnCadastrar.addActionListener(new ActionListener() {

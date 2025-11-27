@@ -107,6 +107,40 @@ public class ContaDAO implements DAO<Conta, Integer> {
         }
     }
 
+
+    public Conta buscarPorNumeroConta(Integer numeroConta) throws SQLException {
+
+        ResultSet rs = null;
+        PreparedStatement st = null;
+
+
+        try {
+            st = conn.prepareStatement("select * from conta where numero_conta=?");
+            st.setInt(1, numeroConta);
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                Conta conta = new Conta();
+                conta.setIdConta(rs.getInt("id_conta"));
+                conta.setNomeBanco(rs.getString("nome_banco"));
+                conta.setNumeroConta(rs.getInt("numero_conta"));
+                conta.setAgencia(rs.getInt("agencia"));
+                conta.setTipoConta(rs.getString("tipo_conta"));
+                conta.setIdUsuario(rs.getInt("id_usuario"));
+                conta.setSaldo(rs.getDouble("saldo"));
+
+                return conta;
+            } else {
+                return null;
+            }
+
+        } finally {
+            BancoDados.finalizarStatement(st);
+            BancoDados.finalizarResultSet(rs);
+            BancoDados.desconectar();
+        }
+    }
+
     @Override
     public int atualizar(Conta contaNew, Integer id_conta) throws SQLException {
 
@@ -120,13 +154,34 @@ public class ContaDAO implements DAO<Conta, Integer> {
             st.setString(4, contaNew.getTipoConta());
             st.setInt(5, id_conta);
 
-            return st.executeUpdate();
+            int res = st.executeUpdate();
+            return res;
+
 
         } finally {
             BancoDados.finalizarStatement(st);
             BancoDados.desconectar();
         }
     }
+    public int atualizarSaldo(double saldo, int id) throws SQLException {
+
+        PreparedStatement st = null;
+        try {
+
+            st = conn.prepareStatement("update conta set saldo=? where id_conta=?");
+            st.setDouble(1, saldo);
+            st.setInt(2, id);
+
+            int res = st.executeUpdate();
+            return res;
+
+
+        } finally {
+            BancoDados.finalizarStatement(st);
+            BancoDados.desconectar();
+        }
+    }
+
 
     @Override
     public int excluir(Integer chavePrimaria) throws SQLException {
@@ -178,6 +233,8 @@ public class ContaDAO implements DAO<Conta, Integer> {
 			BancoDados.desconectar();
 		}
     }
+
+
     
     
     

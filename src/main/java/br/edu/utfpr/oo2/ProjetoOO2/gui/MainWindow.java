@@ -125,7 +125,7 @@ public class MainWindow extends JFrame {
         
         JMenuItem EditarContaMenuItem = new JMenuItem("Editar Conta");
         EditarContaMenuItem.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
         		EditarContasSelecaoWindow editarContasSelecaoWindow = new EditarContasSelecaoWindow(getUserLogado());
         		//editarContaWindow.setVisible(true);
         	}
@@ -142,6 +142,19 @@ public class MainWindow extends JFrame {
         	}
         });
         despesaMenu.add(cadastrarDespesaMenuItem);
+        
+        JMenu lancamentosMenu = new JMenu("Lançamentos");
+        menuBar.add(lancamentosMenu);
+        
+        JMenuItem novoLancamentoMenuItem = new JMenuItem("+ Novo Lançamento");
+        novoLancamentoMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                SelectTipoLancamento selectTipoLancamento = new SelectTipoLancamento(getUserLogado());
+                selectTipoLancamento.setVisible(true);
+
+        	}
+        });
+        lancamentosMenu.add(novoLancamentoMenuItem);
 
     }
 	private static void addPopup(Component component, final JPopupMenu popup) {

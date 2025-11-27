@@ -1,13 +1,11 @@
 package br.edu.utfpr.oo2.ProjetoOO2.dao;
 
 
-import br.edu.utfpr.oo2.ProjetoOO2.entity.Transaciton;
+import br.edu.utfpr.oo2.ProjetoOO2.entity.Transaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 
 public class TransactionDAO {
     private final Connection conn;
@@ -17,8 +15,8 @@ public class TransactionDAO {
     }
 
     public int cadastrarTransferencia(
-            Transaciton transSaida,
-            Transaciton transEntrada) throws SQLException {
+            Transaction transSaida,
+            Transaction transEntrada) throws SQLException {
 
         PreparedStatement psSaida = null;
         PreparedStatement psEntrada = null;
@@ -28,11 +26,11 @@ public class TransactionDAO {
 
             // SAÍDA (origem) -> valor negativo
             psSaida = conn.prepareStatement(
-                    "INSERT INTO transacao (id_conta, valor, data_transacao, tipo, analitica, descricao, id_usuario) " +
+                    "INSERT INTO transacao (numero_conta, valor, data_transacao, tipo, analitica, descricao, id_usuario) " +
                             "VALUES (?, ?, ?, ?, ?, ?, ?)"
             );
 
-            psSaida.setInt(1, transSaida.getId_conta());
+            psSaida.setInt(1, transSaida.getNumero_conta());
             psSaida.setDouble(2, transSaida.getValor()); // já deve vir NEGATIVO
             psSaida.setDate(3, transSaida.getDataTransacao());
             psSaida.setString(4, "Despesa");
@@ -47,7 +45,7 @@ public class TransactionDAO {
                             "VALUES (?, ?, ?, ?, ?, ?, ?)"
             );
 
-            psEntrada.setInt(1, transEntrada.getId_conta());
+            psEntrada.setInt(1, transEntrada.getNumero_conta());
             psEntrada.setDouble(2, transEntrada.getValor()); // já deve vir POSITIVO
             psEntrada.setDate(3, transEntrada.getDataTransacao());
             psEntrada.setString(4, "Receita");
@@ -72,13 +70,13 @@ public class TransactionDAO {
     }
 
 
-    public int cadastrarReceitaDespesa(Transaciton transaction) throws SQLException {
+    public int cadastrarReceitaDespesa(Transaction transaction) throws SQLException {
 
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO transacao (id_conta,valor,data_transacao,tipo,analitica,descricao,id_usuario) VALUES (?,?,?,?,?,?,?)");
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO transacao (numero_conta,valor,data_transacao,tipo,analitica,descricao,id_usuario) VALUES (?,?,?,?,?,?,?)");
 
         try {
 
-            ps.setInt(1, transaction.getId_conta());
+            ps.setInt(1, transaction.getNumero_conta());
             ps.setDouble(2, transaction.getValor());
             ps.setDate(3, transaction.getDataTransacao());
             ps.setString(4, transaction.getTipo());

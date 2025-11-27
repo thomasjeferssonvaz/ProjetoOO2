@@ -86,4 +86,35 @@ public class AnaliticaFinanceiraDAO implements DAO<AnaliticaFinanceira, Integer>
         }
 
     }
+
+    public List<AnaliticaFinanceira> listarDespesas(int id_usuario) throws SQLException {
+
+        List<AnaliticaFinanceira> analiticasBD = new ArrayList<>();
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM analitica_financeira WHERE categoria_tipo = 'DESPESA' AND id_usuario = ?");
+        ResultSet rs = null;
+        try {
+
+
+            ps.setInt(1, id_usuario);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                AnaliticaFinanceira analiticaBD = new AnaliticaFinanceira();
+                analiticaBD.setId(rs.getInt("id"));
+                analiticaBD.setNome(rs.getString("nome"));
+                analiticaBD.setCategoriaTipo(rs.getString("categoria_tipo"));
+                analiticaBD.setDescricao(rs.getString("descricao"));
+                analiticaBD.setId_usuario(rs.getInt("id_usuario"));
+
+                analiticasBD.add(analiticaBD);
+            }
+            return analiticasBD;
+        }finally{
+            BancoDados.finalizarResultSet(rs);
+            BancoDados.finalizarStatement(ps);
+            BancoDados.desconectar();
+        }
+
+    }
+
 }

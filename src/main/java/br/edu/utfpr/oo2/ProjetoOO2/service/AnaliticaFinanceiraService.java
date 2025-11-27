@@ -25,4 +25,9 @@ public class AnaliticaFinanceiraService {
 
     }
 
+    public List<AnaliticaFinanceira> listarDespesas(int idUsuario) throws SQLException, IOException {
+        Connection conn = BancoDados.conectar();
+        return new AnaliticaFinanceiraDAO(conn).listarDespesas(idUsuario);
+    }
+
 }

@@ -1,20 +1,20 @@
 package br.edu.utfpr.oo2.ProjetoOO2.entity;
 
+import java.math.BigDecimal;
 import java.sql.Date;
-import java.time.LocalDateTime;
 
-public class Transaciton {
+public class Transaction {
     private long id;
-    private int id_conta;
-    private Double valor;
+    private int numero_conta;
+    private double valor;
     private Date dataTransacao;
     private String tipo;
     private String analiticaFinanceira;
     private String descricao;
     private int id_usuario;
 
-    public Transaciton(int id_conta, Double valor, Date dataTransacao, String tipo, String analiticaFinanceira, String descricao, int id_usuario) {
-        this.id_conta = id_conta;
+    public Transaction(int numero_conta, double valor, Date dataTransacao, String tipo, String analiticaFinanceira, String descricao, int id_usuario) {
+        this.numero_conta = numero_conta;
         this.valor = valor;
         this.dataTransacao = dataTransacao;
         this.tipo = tipo;
@@ -23,7 +23,7 @@ public class Transaciton {
         this.id_usuario = id_usuario;
     }
 
-    public Transaciton(){}
+    public Transaction(){}
 
     public int getId_usuario() {
         return id_usuario;
@@ -65,20 +65,20 @@ public class Transaciton {
         this.dataTransacao = dataTransacao;
     }
 
-    public Double getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
-    public int getId_conta() {
-        return id_conta;
+    public int getNumero_conta() {
+        return numero_conta;
     }
 
-    public void setId_conta(int id_conta) {
-        this.id_conta = id_conta;
+    public void setNumero_conta(int numero_conta) {
+        this.numero_conta = numero_conta;
     }
 
     public long getId() {

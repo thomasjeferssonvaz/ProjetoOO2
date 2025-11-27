@@ -1,6 +1,6 @@
 package br.edu.utfpr.oo2.ProjetoOO2.dao;
 
-import br.edu.utfpr.oo2.ProjetoOO2.entity.Transaciton;
+import br.edu.utfpr.oo2.ProjetoOO2.entity.Transaction;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -29,7 +29,7 @@ public class TransactionDAOTeste {
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         Date sqlDate = Date.valueOf(data);
 
-        Transaciton transac = new Transaciton(6,10.00, sqlDate,"Despesa","Aluguel",null,10);
+        Transaction transac = new Transaction(6,10.00, sqlDate,"Despesa","Aluguel",null,10);
 
         int res = new TransactionDAO(conn).cadastrarReceitaDespesa(transac);
         if(res == 1){

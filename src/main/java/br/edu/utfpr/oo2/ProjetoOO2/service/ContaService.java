@@ -51,6 +51,11 @@ public class ContaService {
         return new ContaDAO(conn).buscarPorChave(id);
     }
 
+    public Conta buscarPorNumeroConta(int numero_conta) throws SQLException, IOException {
+        Connection conn = BancoDados.conectar();
+        return new ContaDAO(conn).buscarPorNumeroConta(numero_conta);
+    }
+
     public int atualizarConta(Conta contaNew, Conta contaOld) throws SQLException, IOException {
         Connection conn = BancoDados.conectar();
         return new ContaDAO(conn).atualizar(contaNew,contaOld.getIdConta());
@@ -65,5 +70,12 @@ public class ContaService {
 
     	return new ContaDAO(conn).buscarPorUsuario(userLogado.getId());
     	
+    }
+
+    public int atualizarSaldo(Conta conta) throws SQLException, IOException {
+        double saldoNovo = conta.getSaldo();
+        int id = conta.getIdConta();
+        Connection conn = BancoDados.conectar();
+        return new ContaDAO(conn).atualizarSaldo(saldoNovo, id);
     }
 }

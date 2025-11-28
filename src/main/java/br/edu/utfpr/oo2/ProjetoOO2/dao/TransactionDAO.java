@@ -33,23 +33,23 @@ public class TransactionDAO {
             psSaida.setInt(1, transSaida.getNumero_conta());
             psSaida.setDouble(2, transSaida.getValor()); // já deve vir NEGATIVO
             psSaida.setDate(3, transSaida.getDataTransacao());
-            psSaida.setString(4, "Despesa");
-            psSaida.setString(5, "TRANSFERENCIA");
+            psSaida.setString(4, transSaida.getTipo());
+            psSaida.setString(5, transSaida.getAnaliticaFinanceira());
             psSaida.setString(6, transSaida.getDescricao());
             psSaida.setInt(7, transSaida.getId_usuario());
             int res = psSaida.executeUpdate();
 
             // ENTRADA (destino) -> valor positivo
             psEntrada = conn.prepareStatement(
-                    "INSERT INTO transacao (id_conta, valor, data_transacao, tipo, analitica, descricao, id_usuario) " +
+                    "INSERT INTO transacao (numero_conta, valor, data_transacao, tipo, analitica, descricao, id_usuario) " +
                             "VALUES (?, ?, ?, ?, ?, ?, ?)"
             );
 
             psEntrada.setInt(1, transEntrada.getNumero_conta());
             psEntrada.setDouble(2, transEntrada.getValor()); // já deve vir POSITIVO
             psEntrada.setDate(3, transEntrada.getDataTransacao());
-            psEntrada.setString(4, "Receita");
-            psEntrada.setString(5, "TRANSFERENCIA");
+            psEntrada.setString(4, transEntrada.getTipo());
+            psEntrada.setString(5, transEntrada.getAnaliticaFinanceira());
             psEntrada.setString(6, transEntrada.getDescricao());
             psEntrada.setInt(7, transEntrada.getId_usuario());
             res += psEntrada.executeUpdate();

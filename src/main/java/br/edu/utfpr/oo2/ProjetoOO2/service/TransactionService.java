@@ -15,7 +15,28 @@ public class TransactionService {
     public TransactionService() {
     }
 
-    ;
+    public int cadastrarTransferencia(Transaction transSaida, Transaction transEntrada, double saldoSaida) throws Exception {
+
+        if (transSaida == null || transEntrada == null) {
+            throw new Exception("Conta null");
+        }else if (transSaida.getValor() > saldoSaida) {
+            throw new SaldoInsufucuenteException();
+        } else if (transSaida.getNumero_conta() == transEntrada.getNumero_conta()) {
+            throw new Exception("Mesma conta");
+        } else if (transSaida.getValor()<0.0) {
+            throw new Exception("Valor negativo");
+        }
+
+        transSaida.setValor(-Math.abs(transSaida.getValor()));
+
+        Connection conn =BancoDados.conectar();
+        int resultado =new TransactionDAO(conn).cadastrarTransferencia(transSaida, transEntrada);
+
+        transSaida.setValor(Math.abs(transSaida.getValor())); //seta o valor para positivo novamente, para atualização do saldo da conta.
+        return resultado;
+
+
+    }
 
     public int cadastrarTransactionDespesa(Transaction transaction, double saldo) throws SaldoInsufucuenteException, SQLException, IOException {
 

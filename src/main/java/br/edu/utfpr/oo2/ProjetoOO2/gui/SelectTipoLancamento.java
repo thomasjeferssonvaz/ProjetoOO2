@@ -68,8 +68,8 @@ public class SelectTipoLancamento extends JFrame {
 		btnTransferencia = new JButton("TRANSFERÊNCIA");
 		btnTransferencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                TransferenciaWindow transferenciaWindow = new TransferenciaWindow();
-                transferenciaWindow.setVisible(true);
+                TransferenciaWindow transferenciaWindow = new TransferenciaWindow(userLogado);
+                //transferenciaWindow.setVisible(true);
 			}
 		});
 		btnTransferencia.setFont(new Font("Tahoma", Font.PLAIN, 13));

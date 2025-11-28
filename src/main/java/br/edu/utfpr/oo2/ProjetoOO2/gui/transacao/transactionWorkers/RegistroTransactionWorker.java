@@ -1,9 +1,9 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.transacao.transactionWorkers;
 
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Transaction;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.Exception.SaldoInsufucuenteException;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.exception.SaldoInsufucuenteException;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.ContaService;
 import br.edu.utfpr.oo2.ProjetoOO2.service.TransactionService;

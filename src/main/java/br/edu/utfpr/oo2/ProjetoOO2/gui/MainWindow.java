@@ -1,6 +1,9 @@
 package br.edu.utfpr.oo2.ProjetoOO2.gui;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.conta.CadastroContaWindow;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.conta.EditarContasSelecaoWindow;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.transacao.SelectTipoLancamento;
 
 import java.awt.EventQueue;
 

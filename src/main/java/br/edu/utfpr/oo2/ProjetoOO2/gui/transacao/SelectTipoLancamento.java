@@ -1,9 +1,7 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.transacao;
 
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
-
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

@@ -3,7 +3,7 @@ package br.edu.utfpr.oo2.ProjetoOO2.service;
 import br.edu.utfpr.oo2.ProjetoOO2.dao.BancoDados;
 import br.edu.utfpr.oo2.ProjetoOO2.dao.TransactionDAO;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Transaction;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.Exception.SaldoInsufucuenteException;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.exception.SaldoInsufucuenteException;
 
 import java.io.IOException;
 import java.sql.Connection;

@@ -1,4 +1,4 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.conta;
 
 
 import javax.swing.*;
@@ -8,8 +8,8 @@ import javax.swing.border.EmptyBorder;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.contaWorkers.LoadSelectetContaWorker;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.contaWorkers.SearchContaTaskWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.conta.contaWorkers.LoadSelectetContaWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.conta.contaWorkers.SearchContaTaskWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.service.ContaService;
 
 import java.awt.Font;

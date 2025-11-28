@@ -1,8 +1,8 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.conta;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.contaWorkers.EditarContaWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.conta.contaWorkers.EditarContaWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.service.ContaService;
 
 import javax.swing.*;

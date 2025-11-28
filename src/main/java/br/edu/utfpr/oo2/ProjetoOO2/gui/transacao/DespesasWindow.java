@@ -1,11 +1,13 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.transacao;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Transaction;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.transacao.transactionWorkers.LancamentoPopulationAnaliticaWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.transacao.transactionWorkers.LancamentoPopulationContaWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.transacao.transactionWorkers.RegistroTransactionWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.AnaliticaFinanceiraService;
 import br.edu.utfpr.oo2.ProjetoOO2.service.ContaService;
-import br.edu.utfpr.oo2.ProjetoOO2.service.TransactionService;
 
 
 import javax.swing.*;
@@ -14,11 +16,12 @@ import java.awt.Font;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.awt.Color;
 
-public class ReceitasWindow extends JFrame {
+
+public class DespesasWindow extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -30,16 +33,11 @@ public class ReceitasWindow extends JFrame {
     private JButton btnCancelar;
     private JButton btnConfirmar;
 
-    private Usuario userLogado;
     private MaskFormatter mascaraData;
-    private String tipo;
-
     private ContaService contaService;
     private AnaliticaFinanceiraService analiticaFinanceiraService;
-    private TransactionService transactionService;
-    private JLabel lbObrigatoriedade_1;
-    private JLabel lbObrigatoriedade_2;
-    private JLabel lbObrigatoriedade_3;
+    private Usuario userLogado;
+    private String tipo;
 
     /**
      * Launch the application.
@@ -48,7 +46,7 @@ public class ReceitasWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ReceitasWindow frame = new ReceitasWindow();
+					DespesasWindow frame = new DespesasWindow();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,30 +63,23 @@ public class ReceitasWindow extends JFrame {
         try {
 
             this.mascaraData = new MaskFormatter("##/##/####");
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this, "Preencha a data com formato 'DD/MM/YYYY'","Erro",JOptionPane.WARNING_MESSAGE);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(this, "Preencha a data com formato 'DD/MM/YYYY'", "Erro", JOptionPane.WARNING_MESSAGE);
         }
     }
 
     private void popularComponentes() {
 
-        GenericLoadingDialog genericLoadingDialog = new GenericLoadingDialog(ReceitasWindow.this, "Buscando Contas");
-        LancamentoPopulationContaWorker popularConta = new LancamentoPopulationContaWorker<>(this, contaService ,userLogado, genericLoadingDialog, cbConta);
+        GenericLoadingDialog genericLoadingDialog = new GenericLoadingDialog(this, "Buscando Contas");
+        LancamentoPopulationContaWorker popularConta = new LancamentoPopulationContaWorker<>(this, contaService, userLogado, genericLoadingDialog, cbConta);
         popularConta.execute();
         genericLoadingDialog.setVisible(true);
 
-        GenericLoadingDialog genericLoadingDialog1 = new GenericLoadingDialog(ReceitasWindow.this, "Buscando Analiticas");
+        GenericLoadingDialog genericLoadingDialog1 = new GenericLoadingDialog(this, "Buscando Analiticas");
         LancamentoPopulationAnaliticaWorker popularAnalitica = new LancamentoPopulationAnaliticaWorker<>(this, analiticaFinanceiraService, userLogado, genericLoadingDialog1, cbAnalitica, tipo);
         popularAnalitica.execute();
         genericLoadingDialog1.setVisible(true);
 
-    }
-
-    private boolean verificarCampos() {
-        if (txtData.getText().equals("") || txtValor.getText().equals("")) {
-            return false;
-        }
-        return true;
     }
 
     private void limparCampos() {
@@ -99,50 +90,54 @@ public class ReceitasWindow extends JFrame {
 
     }
 
-    public void registrarReceita() {
+    private boolean verificarCampos() {
+        if (txtData.getText().equals("") || txtValor.getText().equals("")) {
+            return false;
+        }
+        return true;
+    }
+
+    public void registrarDespesa() {
 
         if (!verificarCampos()) {
             JOptionPane.showMessageDialog(this, "Preencha os campos obrigatorios");
             return;
         }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Transaction transaction = new Transaction();
         try {
+            transaction.setDataTransacao(new java.sql.Date(sdf.parse(this.txtData.getText()).getTime()));
+            transaction.setNumero_conta(Integer.parseInt(this.cbConta.getSelectedItem().toString()));
+            transaction.setAnaliticaFinanceira(this.cbAnalitica.getSelectedItem().toString());
+            transaction.setValor(Double.parseDouble(this.txtValor.getText()));
+            transaction.setDescricao(this.txtDescricao.getText());
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            transaction.setId_usuario(this.userLogado.getId());
+            transaction.setTipo("Despesa");
 
-            Transaction transaciton = new Transaction();
-            transaciton.setDataTransacao(new java.sql.Date(sdf.parse(this.txtData.getText()).getTime()));
-            transaciton.setNumero_conta(Integer.parseInt(this.cbConta.getSelectedItem().toString()));
-            transaciton.setTipo("Receita");
-            transaciton.setAnaliticaFinanceira(cbAnalitica.getSelectedItem().toString());
-            transaciton.setValor(Double.parseDouble(this.txtValor.getText()));
-            transaciton.setDescricao(this.txtDescricao.getText());
-            transaciton.setId_usuario(userLogado.getId());
-
-            GenericLoadingDialog gldCadastrando = new GenericLoadingDialog(ReceitasWindow.this, "Registrando Receita");
-
-            RegistroTransactionWorker registroTransactionWorker = new RegistroTransactionWorker(this,transaciton,gldCadastrando);
+            GenericLoadingDialog genericLoadingDialog = new GenericLoadingDialog(this, "Cadastrando Despesa");
+            RegistroTransactionWorker registroTransactionWorker = new RegistroTransactionWorker(this, transaction, genericLoadingDialog);
             registroTransactionWorker.execute();
-            gldCadastrando.setVisible(true);
+            genericLoadingDialog.setVisible(true);
+
+
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao formatar Data", "Erro Interno", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Preencha a data com formato 'DD/MM/YYYY'","Erro",JOptionPane.WARNING_MESSAGE);
         }
 
     }
 
-
-    public ReceitasWindow(Usuario userLogado) {
-        tipo = "Receita";
-        this.analiticaFinanceiraService = new AnaliticaFinanceiraService();
-        this.transactionService = new TransactionService();
+    public DespesasWindow(Usuario userLogado) {
+        this.tipo = "Despesa";
         this.contaService = new ContaService();
+        this.analiticaFinanceiraService = new AnaliticaFinanceiraService();
         this.userLogado = userLogado;
         this.criarMascaraData();
         this.initComponents();
         setVisible(true);
-        popularComponentes();
-
+        this.popularComponentes();
     }
-
 
     public void initComponents() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -152,10 +147,10 @@ public class ReceitasWindow extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        JLabel lbCadastrarReceitaTitle = new JLabel("Registrar Receita");
-        lbCadastrarReceitaTitle.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        lbCadastrarReceitaTitle.setBounds(155, 10, 133, 15);
-        contentPane.add(lbCadastrarReceitaTitle);
+        JLabel lbCadastrarDespesaTitle = new JLabel("Registrar Despesa");
+        lbCadastrarDespesaTitle.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        lbCadastrarDespesaTitle.setBounds(155, 10, 133, 15);
+        contentPane.add(lbCadastrarDespesaTitle);
 
         JLabel lbData = new JLabel("Data");
         lbData.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -241,7 +236,7 @@ public class ReceitasWindow extends JFrame {
         btnConfirmar = new JButton("Confirmar");
         btnConfirmar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                registrarReceita();
+                registrarDespesa();
                 limparCampos();
             }
         });
@@ -256,26 +251,6 @@ public class ReceitasWindow extends JFrame {
         });
         btnCancelar.setBounds(86, 310, 133, 42);
         contentPane.add(btnCancelar);
-        
-        JLabel lbObrigatoriedade = new JLabel("*");
-        lbObrigatoriedade.setForeground(new Color(255, 0, 0));
-        lbObrigatoriedade.setBounds(109, 48, 13, 12);
-        contentPane.add(lbObrigatoriedade);
-        
-        lbObrigatoriedade_1 = new JLabel("*");
-        lbObrigatoriedade_1.setForeground(Color.RED);
-        lbObrigatoriedade_1.setBounds(109, 143, 13, 12);
-        contentPane.add(lbObrigatoriedade_1);
-        
-        lbObrigatoriedade_2 = new JLabel("*");
-        lbObrigatoriedade_2.setForeground(Color.RED);
-        lbObrigatoriedade_2.setBounds(109, 95, 13, 12);
-        contentPane.add(lbObrigatoriedade_2);
-        
-        lbObrigatoriedade_3 = new JLabel("*");
-        lbObrigatoriedade_3.setForeground(Color.RED);
-        lbObrigatoriedade_3.setBounds(109, 191, 13, 12);
-        contentPane.add(lbObrigatoriedade_3);
 
     }
 }

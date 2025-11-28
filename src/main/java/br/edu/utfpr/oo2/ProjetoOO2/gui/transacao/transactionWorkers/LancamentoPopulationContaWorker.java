@@ -1,4 +1,4 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.transacao.transactionWorkers;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;

@@ -1,9 +1,11 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.transacao;
 
 
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Transaction;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.transacao.transactionWorkers.LancamentoPopulationContaWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.transacao.transactionWorkers.TransferenciaWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.ContaService;
 
@@ -178,6 +180,40 @@ public class TransferenciaWindow extends JFrame {
         txtValor.setColumns(10);
         txtValor.setBounds(143, 183, 104, 19);
         contentPane.add(txtValor);
+        txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent e) {
+                char c = e.getKeyChar();
+
+                // permite números
+                if (Character.isDigit(c)) {
+
+                    // verifica limite de 2 casas decimais
+                    String texto = txtValor.getText();
+                    int indexPonto = texto.indexOf('.');
+
+                    //conferir casas decimais
+                    if (indexPonto != -1) {
+                        int casasDepois = texto.length() - indexPonto - 1;
+
+                        if (casasDepois >= 2) { //2casas decimais
+                            e.consume();
+                        }
+                    }
+                    return; // dígito permitido
+                }
+
+                // permite apenas 1 ponto
+                if (c == '.') {
+                    if (txtValor.getText().contains(".")) {
+                        e.consume();
+                    }
+                    return;
+                }
+                // qualquer outra coisa nao permite
+                e.consume();
+            }
+        });
 
         cbContaOrigem = new JComboBox();
         cbContaOrigem.setBounds(193, 103, 104, 20);

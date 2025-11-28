@@ -1,4 +1,4 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.conta;
 
 import java.awt.EventQueue;
 
@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Conta;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.contaWorkers.CadastroContaTaskWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.conta.contaWorkers.CadastroContaTaskWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.ContaService;
 

@@ -5,6 +5,7 @@ O nosso sistema consiste de um espaço onde pode-se criar inúmeros usuários pa
 assim como diversas contas de bancos para cada usuário, 
 permitindo assim uma ampla, 
 diversa e fácil gestão das finanças pessoais até da família mais diversa.
+Módulo de Usuário e app principal criado por a2579847 - Thomas Jefersson Vaz
 
 ## Instalação
 ### 1. Download e extração do app.

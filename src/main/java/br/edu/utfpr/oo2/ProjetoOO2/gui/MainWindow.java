@@ -3,6 +3,7 @@ package br.edu.utfpr.oo2.ProjetoOO2.gui;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.conta.CadastroContaWindow;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.conta.EditarContasSelecaoWindow;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.metainvestimento.CadastroMetaInvestimentoWindow;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.transacao.SelectTipoLancamento;
 
 import java.awt.EventQueue;
@@ -51,7 +52,7 @@ public class MainWindow extends JFrame {
     public void initComponent() {
         setTitle("Main");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 472, 305);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -135,7 +136,7 @@ public class MainWindow extends JFrame {
         });
         contaMenu.add(EditarContaMenuItem);
 
-        JMenu despesaMenu = new JMenu("Receitas/Despesas");
+        JMenu despesaMenu = new JMenu("Analiticas");
         menuBar.add(despesaMenu);
         
         JMenuItem cadastrarDespesaMenuItem = new JMenuItem("Cadastrar Analitica");
@@ -158,6 +159,18 @@ public class MainWindow extends JFrame {
         	}
         });
         lancamentosMenu.add(novoLancamentoMenuItem);
+        
+        JMenu PlanejamentoFinanceiroMenu = new JMenu("Investimentos");
+        menuBar.add(PlanejamentoFinanceiroMenu);
+        
+        JMenuItem InvestimentosMenuItem = new JMenuItem("Cadastrar Meta");
+        InvestimentosMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                CadastroMetaInvestimentoWindow investimentoWindow = new CadastroMetaInvestimentoWindow(getUserLogado());
+                //investimentoWindow.setVisible(true);
+        	}
+        });
+        PlanejamentoFinanceiroMenu.add(InvestimentosMenuItem);
 
     }
 	private static void addPopup(Component component, final JPopupMenu popup) {

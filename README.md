@@ -95,6 +95,7 @@ create table investimento
     id int unsigned auto_increment primary key,
     nome varchar(255) not null,
     tipo varchar(30) not null,
+    local varchar(30)   not null,
     aporte_mensal decimal(16,2) not null,   
     id_usuario int not null,
     

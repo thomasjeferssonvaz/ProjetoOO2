@@ -226,6 +226,14 @@ public class MainWindow extends JFrame {
         });
         PlanejamentoFinanceiroMenu.add(InvestimentosMenuItem);
 
+        JMenuItem listarMetasMenuItem = new JMenuItem("Ver Metas");
+        PlanejamentoFinanceiroMenu.add(listarMetasMenuItem);
+        listarMetasMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                MinhasMetasWindow minhasMetasWindow = new MinhasMetasWindow(getUserLogado());
+        	}
+        });
+
     }
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {

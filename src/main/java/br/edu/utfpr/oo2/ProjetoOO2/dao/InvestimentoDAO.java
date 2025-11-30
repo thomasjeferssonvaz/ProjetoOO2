@@ -24,11 +24,12 @@ public class InvestimentoDAO implements DAO<Investimento, Integer> {
 
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO investimento (nome,tipo,aporte_mensal,id_usuario) VALUES (?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO investimento (nome,tipo,local,aporte_mensal,id_usuario) VALUES (?,?,?,?,?)");
             ps.setString(1, entidade.getNome());
             ps.setString(2, entidade.getTipo());
-            ps.setDouble(3, entidade.getAporte());
-            ps.setInt(4, entidade.getIdUsuario());
+            ps.setString(3, entidade.getLocal());
+            ps.setDouble(4, entidade.getAporte());
+            ps.setInt(5, entidade.getIdUsuario());
 
             int res = ps.executeUpdate();
             return res;

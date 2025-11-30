@@ -57,7 +57,7 @@ public class SearchInvestimentoWorker extends SwingWorker<List<Investimento>, Vo
                             investimento.getLocal(),
                             investimento.getAporte()
                     });
-                    genericLoadingDialog.dispose();
+
                 }
             } else {
                 JOptionPane.showMessageDialog(frameInvestimento, "Não há metas de Investimento Cadastrada", "Erro", JOptionPane.ERROR_MESSAGE);

@@ -10,6 +10,8 @@ diversa e fácil gestão das finanças pessoais até da família mais diversa.
 Módulo de Usuário, app principal(GUI - SERVICE - DAO) e Leia me criado por a2579847 - Thomas Jefersson Vaz
 Modulo de Conta, Analitica,Lancamento, Investimento - Camadas (GUI - SERVICE - DAO) criada por a2715031 - Thiago de Lima Augustim
 
+É possível ver o projeto completo no [link](https://github.com/thomasjeferssonvaz/ProjetoOO2)
+
 ## Instalação
 ### 1. Download e extração do app.
 

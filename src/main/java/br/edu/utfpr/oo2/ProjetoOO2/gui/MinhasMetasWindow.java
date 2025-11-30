@@ -81,8 +81,12 @@ public class MinhasMetasWindow extends JFrame {
 			},
 			new String[] {
 				"Id", "Nome", "Tipo", "Local", "Aporte Mensal"
-			}
-		));
+			}){
+			public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+                         }
+		);
 		
 		JLabel lbMinhasMetas = new JLabel("Minhas Metas");
 		lbMinhasMetas.setBounds(163, 10, 119, 25);

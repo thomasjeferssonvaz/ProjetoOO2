@@ -91,4 +91,19 @@ public class InvestimentoDAO implements DAO<Investimento, Integer> {
         return 0;
     }
 
+    public int excluirPorNome(String nomeInvestimento, int id_usuario) throws SQLException {
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement("DELETE FROM investimento WHERE nome = ? AND id_usuario = ?");
+            ps.setString(1, nomeInvestimento);
+            ps.setInt(2, id_usuario);
+            int res = ps.executeUpdate();
+            return res;
+        }finally {
+            BancoDados.finalizarStatement(ps);
+            BancoDados.desconectar();
+        }
+    }
+
 }

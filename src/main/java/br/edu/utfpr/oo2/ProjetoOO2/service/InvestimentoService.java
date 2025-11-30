@@ -25,4 +25,10 @@ public class InvestimentoService {
         Connection conn = BancoDados.conectar();
         return new InvestimentoDAO(conn).listarInvestimentosPorId(id);
     }
+
+    public int excluirPorNome(String nomeInvestimento, int idUsuario) throws SQLException, IOException {
+        Connection conn = BancoDados.conectar();
+        return new InvestimentoDAO(conn).excluirPorNome(nomeInvestimento,idUsuario);
+    }
+
 }

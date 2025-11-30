@@ -10,18 +10,22 @@ import java.awt.EventQueue;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
+import javax.swing.border.BevelBorder;
+import javax.swing.table.DefaultTableModel;
 
 public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
     private Usuario userLogado;
+    private JTable tbExtrato;
+    private JLabel lbSaldo;
 
 	/**
 	 * Launch the application.
@@ -44,9 +48,24 @@ public class MainWindow extends JFrame {
     }
 
 
+    public void atualizarSaldo() {
+        new MainWorker(this, lbSaldo, userLogado).execute();
+    }
+    public void buscarExtrato() {
+        new ExtratoWorker(this,tbExtrato,userLogado).execute();
+    }
+    
+
     public MainWindow(Usuario userLogado) {
         this.userLogado = userLogado;
         this.initComponent();
+
+        Timer timer = new Timer(3000, e -> {
+            atualizarSaldo();
+            buscarExtrato();
+
+        });
+        timer.start();
 	}
 
     public void initComponent() {
@@ -59,9 +78,44 @@ public class MainWindow extends JFrame {
         contentPane.setLayout(null);
 
         JPanel panel = new JPanel();
-        panel.setBounds(0, 0, 434, 261);
+        panel.setBounds(10, 10, 438, 236);
         contentPane.add(panel);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel.setLayout(null);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        panel_1.setBounds(10, 10, 418, 74);
+        panel.add(panel_1);
+        panel_1.setLayout(null);
+        
+        JLabel lbSaldoTotal = new JLabel("Saldo Total das Contas");
+        lbSaldoTotal.setBounds(10, 9, 160, 16);
+        panel_1.add(lbSaldoTotal);
+        lbSaldoTotal.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        
+        lbSaldo = new JLabel("calculando...");
+        lbSaldo.setBounds(10, 35, 154, 21);
+        panel_1.add(lbSaldo);
+        lbSaldo.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        
+        JLabel lbExtrato = new JLabel("Extrado das Contas");
+        lbExtrato.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbExtrato.setBounds(10, 94, 132, 12);
+        panel.add(lbExtrato);
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(10, 111, 418, 115);
+        panel.add(scrollPane);
+        
+        tbExtrato = new JTable();
+        scrollPane.setViewportView(tbExtrato);
+        tbExtrato.setModel(new DefaultTableModel(
+        	new Object[][] {
+        	},
+        	new String[] {
+        		"Data", "Conta", "Analitica", "Valor"
+        	}
+        ));
 
 
         JMenuBar menuBar = new JMenuBar();

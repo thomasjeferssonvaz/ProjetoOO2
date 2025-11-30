@@ -5,7 +5,10 @@ import br.edu.utfpr.oo2.ProjetoOO2.entity.Transaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionDAO {
     private final Connection conn;
@@ -87,11 +90,45 @@ public class TransactionDAO {
             int res = ps.executeUpdate();
 
             return res;
-        }finally {
+        } finally {
             BancoDados.finalizarStatement(ps);
             BancoDados.desconectar();
         }
 
     }
+
+
+    public List<Transaction> listarTransacoes(int id) throws SQLException {
+        List<Transaction> listaTransacoes = new ArrayList<>();
+
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM transacao WHERE id_usuario = ? ORDER BY data_transacao DESC");
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        try {
+
+
+
+                while (rs.next()) {
+                    Transaction transSaida = new Transaction();
+                    transSaida.setNumero_conta(rs.getInt("numero_conta"));
+                    transSaida.setValor(rs.getDouble("valor"));
+                    transSaida.setDataTransacao(rs.getDate("data_transacao"));
+                    transSaida.setTipo(rs.getString("tipo"));
+                    transSaida.setAnaliticaFinanceira(rs.getString("analitica"));
+                    transSaida.setDescricao(rs.getString("descricao"));
+                    transSaida.setId_usuario(rs.getInt("id_usuario"));
+                    listaTransacoes.add(transSaida);
+
+                }
+                return listaTransacoes;
+            }finally {
+                BancoDados.finalizarStatement(ps);
+                BancoDados.finalizarResultSet(rs);
+
+            }
+    }
+
+
+
 }
 

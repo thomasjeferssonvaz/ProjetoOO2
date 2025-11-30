@@ -78,4 +78,10 @@ public class ContaService {
         Connection conn = BancoDados.conectar();
         return new ContaDAO(conn).atualizarSaldo(saldoNovo, id);
     }
+    public double buscarSaldoTotal(int id_usuario) throws SQLException, IOException {
+        Connection conn = BancoDados.conectar();
+
+        return new ContaDAO(conn).saldoTotal(id_usuario);
+    }
+
 }

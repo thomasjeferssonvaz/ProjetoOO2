@@ -190,11 +190,11 @@ public class ContaDAO implements DAO<Conta, Integer> {
         try {
 
 
-        st = conn.prepareStatement("delete from conta where id_conta=?");
-        st.setInt(1, chavePrimaria);
+            st = conn.prepareStatement("delete from conta where id_conta=?");
+            st.setInt(1, chavePrimaria);
 
-        return st.executeUpdate();
-        }finally {
+            return st.executeUpdate();
+        } finally {
 
             BancoDados.finalizarStatement(st);
             BancoDados.desconectar();
@@ -226,16 +226,36 @@ public class ContaDAO implements DAO<Conta, Integer> {
                 contas.add(conta);
             }
 
-        return contas;
+            return contas;
         } finally {
-			BancoDados.finalizarResultSet(rs);
-			BancoDados.finalizarStatement(st);
-			BancoDados.desconectar();
-		}
+            BancoDados.finalizarResultSet(rs);
+            BancoDados.finalizarStatement(st);
+            BancoDados.desconectar();
+        }
+    }
+
+    public Double saldoTotal(int id_usuario) throws SQLException {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = conn.prepareStatement("SELECT SUM(saldo) AS saldo \n" +
+                    "FROM conta \n" +
+                    "WHERE id_usuario = ?");
+            st.setInt(1, id_usuario);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("saldo");
+            }else {
+                return null;
+            }
+
+        } finally {
+            BancoDados.finalizarStatement(st);
+
+        }
+
     }
 
 
-    
-    
-    
 }

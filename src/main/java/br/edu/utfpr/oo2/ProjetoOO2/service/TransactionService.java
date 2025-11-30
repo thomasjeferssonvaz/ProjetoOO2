@@ -8,6 +8,7 @@ import br.edu.utfpr.oo2.ProjetoOO2.gui.exception.SaldoInsufucuenteException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class TransactionService {
 
@@ -55,6 +56,12 @@ public class TransactionService {
 
         Connection conn = BancoDados.conectar();
         return new TransactionDAO(conn).cadastrarReceitaDespesa(transaction);
+
+    }
+
+    public List<Transaction>listarTransacoes(int id) throws SQLException, IOException {
+        Connection conn = BancoDados.conectar();
+        return new TransactionDAO(conn).listarTransacoes(id);
 
     }
 }

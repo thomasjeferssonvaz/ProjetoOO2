@@ -5,7 +5,9 @@ import br.edu.utfpr.oo2.ProjetoOO2.entity.Investimento;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class InvestimentoDAO implements DAO<Investimento, Integer> {
@@ -36,6 +38,38 @@ public class InvestimentoDAO implements DAO<Investimento, Integer> {
         }
     }
 
+    public List<Investimento> listarInvestimentosPorId(int id) throws SQLException {
+        List<Investimento> listaInvestimentos = new ArrayList<>();
+
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM investimento WHERE id_usuario = ? ORDER BY aporte_mensal");
+        ps.setInt(1, id);
+
+        ResultSet rs = ps.executeQuery();
+        try {
+
+            while (rs.next()) {
+                Investimento investimento = new Investimento();
+                investimento.setId(rs.getInt("id"));
+                investimento.setNome(rs.getString("nome"));
+                investimento.setTipo(rs.getString("tipo"));
+                investimento.setLocal(rs.getString("local"));
+                investimento.setAporte(rs.getDouble("aporte_mensal"));
+                investimento.setIdUsuario(rs.getInt("id_usuario"));
+                listaInvestimentos.add(investimento);
+            }
+            return listaInvestimentos;
+        }finally {
+            BancoDados.finalizarStatement(ps);
+            BancoDados.finalizarResultSet(rs);
+        }
+
+
+
+
+
+    }
+
+
     @Override
     public List<Investimento> buscarTodos() throws SQLException {
         return null;
@@ -55,4 +89,5 @@ public class InvestimentoDAO implements DAO<Investimento, Integer> {
     public int excluir(Integer chavePrimaria) throws SQLException {
         return 0;
     }
+
 }

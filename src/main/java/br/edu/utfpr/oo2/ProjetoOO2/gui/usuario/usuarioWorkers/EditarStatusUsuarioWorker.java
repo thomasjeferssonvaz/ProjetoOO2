@@ -1,4 +1,4 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.usuario.usuarioWorkers;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
@@ -8,34 +8,42 @@ import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class EditarUsuarioWorker extends SwingWorker<Usuario, Void>{
+public class EditarStatusUsuarioWorker extends SwingWorker<Usuario, Void>{
     private UsuarioService usuarioService;
     private JFrame editarUsuarioFrame;
     private GenericLoadingDialog genericLoadingDialog;
     private String cmBoxUsername;
-    private Usuario novoUsuario;
     private Usuario userLogado;
+    private String operacao;
     private int resultado;
 
-    public EditarUsuarioWorker(Usuario novoUsuario, GenericLoadingDialog genericLoadingDialog, UsuarioService usuarioService, JFrame editarUsuarioFrame, String cmBoxUsername, Usuario userLogado) {
-        this.novoUsuario = novoUsuario;
+    public EditarStatusUsuarioWorker(GenericLoadingDialog genericLoadingDialog, UsuarioService usuarioService, JFrame editarUsuarioFrame, String cmBoxUsername, Usuario userLogado, String operacao) {
         this.genericLoadingDialog = genericLoadingDialog;
         this.usuarioService = usuarioService;
         this.editarUsuarioFrame = editarUsuarioFrame;
         this.cmBoxUsername = cmBoxUsername;
         this.userLogado = userLogado;
+        this.operacao = operacao;
     }
 
     @Override
     protected Usuario doInBackground() throws Exception{
+        Usuario usuario = null;
         try {
-            resultado = usuarioService.atualizarUsuario(novoUsuario, cmBoxUsername);
+            usuario = usuarioService.buscarUsuarioPorUsername(cmBoxUsername);
+            if(operacao.equals("Ativando")){
+                usuario.setStatus("ativo");
+            } else {
+                usuario.setStatus("inativo");
+            }
+            System.out.println(usuario);
+            resultado = usuarioService.atualizarUsuario(usuario, cmBoxUsername);
         } catch (IOException | SQLException e) {
             genericLoadingDialog.dispose();
             JOptionPane.showMessageDialog(this.editarUsuarioFrame, "Erro: " + e.getMessage(), "Erro ao atualizar usuário", JOptionPane.ERROR_MESSAGE);
         }
 
-        return novoUsuario;
+        return usuario;
     }
 
     @Override

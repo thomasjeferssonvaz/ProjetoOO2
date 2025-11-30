@@ -1,8 +1,8 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.analiticas;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.AnaliticaFinanceira;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.analiticaWorkers.CadastrarAnaliticaWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.analiticas.analiticaWorkers.CadastrarAnaliticaWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.AnaliticaFinanceiraService;
 

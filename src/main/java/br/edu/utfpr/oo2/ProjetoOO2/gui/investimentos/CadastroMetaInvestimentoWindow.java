@@ -1,8 +1,8 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui.metainvestimento;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.investimentos;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Investimento;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.metainvestimento.workers.CadastroInvestimentoWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.investimentos.workers.CadastroInvestimentoWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 
 import javax.swing.JFrame;

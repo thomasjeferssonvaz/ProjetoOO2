@@ -1,7 +1,7 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.usuario;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.CadastroTaskWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.usuario.usuarioWorkers.CadastroTaskWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.UsuarioService;
 

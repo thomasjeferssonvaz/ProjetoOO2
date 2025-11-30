@@ -1,10 +1,16 @@
 package br.edu.utfpr.oo2.ProjetoOO2.gui;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.analiticas.CadastroAnaliticaWindow;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.conta.CadastroContaWindow;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.conta.EditarContasSelecaoWindow;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.metainvestimento.CadastroMetaInvestimentoWindow;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.investimentos.CadastroMetaInvestimentoWindow;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.investimentos.ExcluirMetaWindow;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.investimentos.MinhasMetasWindow;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.transacao.SelectTipoLancamento;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.usuario.AlterarSenhaUsuarioWindow;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.usuario.CadastroUsuarioWindow;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.usuario.EditarUsuarioWindow;
 
 import java.awt.EventQueue;
 

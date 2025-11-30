@@ -1,4 +1,4 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.analiticaWorkers;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.analiticas.analiticaWorkers;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.AnaliticaFinanceira;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;

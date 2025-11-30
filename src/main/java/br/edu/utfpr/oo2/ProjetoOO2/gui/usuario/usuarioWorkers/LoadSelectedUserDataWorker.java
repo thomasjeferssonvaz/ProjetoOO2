@@ -1,14 +1,13 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.usuario.usuarioWorkers;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.EditarUsuarioWindow;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.usuario.EditarUsuarioWindow;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 import br.edu.utfpr.oo2.ProjetoOO2.service.UsuarioService;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class LoadSelectedUserDataWorker extends SwingWorker<Usuario, Void>{
     private String cmBoxUsername;

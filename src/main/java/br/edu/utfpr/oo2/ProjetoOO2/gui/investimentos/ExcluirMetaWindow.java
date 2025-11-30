@@ -1,6 +1,8 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.investimentos;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.investimentos.workers.ExcluirMetaWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.investimentos.workers.PopulationMetaCbWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
 
 import javax.swing.*;

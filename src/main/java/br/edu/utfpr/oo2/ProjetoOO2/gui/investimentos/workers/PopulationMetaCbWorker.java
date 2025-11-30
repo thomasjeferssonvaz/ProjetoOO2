@@ -1,4 +1,4 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.investimentos.workers;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Investimento;
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;

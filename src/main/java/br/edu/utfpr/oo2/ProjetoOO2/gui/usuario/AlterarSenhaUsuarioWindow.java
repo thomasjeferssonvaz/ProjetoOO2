@@ -1,9 +1,9 @@
-package br.edu.utfpr.oo2.ProjetoOO2.gui;
+package br.edu.utfpr.oo2.ProjetoOO2.gui.usuario;
 
 import br.edu.utfpr.oo2.ProjetoOO2.entity.Usuario;
 import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.GenericLoadingDialog;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.SearchUsersStartWorker;
-import br.edu.utfpr.oo2.ProjetoOO2.gui.taskWorker.usuarioWorkers.AlterarSenhaUsuarioWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.usuario.usuarioWorkers.SearchUsersStartWorker;
+import br.edu.utfpr.oo2.ProjetoOO2.gui.usuario.usuarioWorkers.AlterarSenhaUsuarioWorker;
 import br.edu.utfpr.oo2.ProjetoOO2.service.UsuarioService;
 
 import javax.swing.*;

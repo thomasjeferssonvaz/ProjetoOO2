@@ -72,6 +72,38 @@ create table analitica_financeira(
     id_usuario int not null,
     FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario)
 );
+
+create table transacao
+    (
+        id bigint unsigned auto_increment primary key,
+        numero_conta int not null,
+        valor decimal(15, 2) not null,
+        data_transacao timestamp default current_timestamp() not null,
+        tipo varchar(20) not null,
+        analitica varchar(50) not null,
+        descricao varchar(255) null,
+        id_usuario int not null,
+
+        constraint transacao_conta_id_conta_fk
+            foreign key (numero_conta) references conta(numero_conta),
+        constraint transacao_conta_id_usuario_fk_
+            foreign key (id_usuario) references usuario(id_usuario)
+    );
+
+create table investimento
+(
+    id int unsigned auto_increment primary key,
+    nome varchar(255) not null,
+    tipo varchar(30) not null,
+    aporte_mensal decimal(16,2) not null,   
+    id_usuario int not null,
+    
+    constraint investimento_nome_idusuario_unico
+        unique (nome, id_usuario),
+    constraint investimento_usuario_id_fk
+        foreign key (id_usuario) references usuario (id_usuario)
+            on update cascade on delete cascade 
+);
                                                                                            
 ```
 
